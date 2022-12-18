@@ -1,17 +1,14 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import { Home } from "./components/home/Home";
-import { PageNotFound } from "./components/misc/PageNotFound";
+import { Footer } from "./components/footer/Footer";
+import AnimatedRoutes from "./components/misc/AnimatedRoutes";
+import { NavBar } from "./components/navigation/NavBar";
 
 function App() {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-       
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
+      <NavBar />
+      <AnimatedRoutes />
+      <Footer />
     </>
   );
 }
