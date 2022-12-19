@@ -4,29 +4,30 @@ import Layout from "../../components/Layout";
 import data, { ProductDataType } from "../../utils/data";
 import Link from "next/link";
 import Image from "next/image";
-import { Store } from "../../utils/Store";
+import { CartProductDataType, Store } from "../../utils/Store";
 
 export default function ProductScreen() {
   const { state, dispatch } = useContext(Store);
   const { query } = useRouter();
   const { slug } = query;
-  const product = data.products.find((x) => x.slug === slug);
+  const product = data.products.find((x: ProductDataType) => x.slug === slug);
   if (!product) {
     return <div>Product not found</div>;
   }
 
   const addToCartHandler = () => {
     const existItem = state.cart.cartItems.find(
-      (x: ProductDataType) => x.slug === product.slug
+      (x: CartProductDataType) => x.slug === product.slug
     );
     const qty = existItem ? existItem.qty + 1 : 1;
 
     if (qty > product.countInStock) {
-        window.alert("Sorry. Product is out of stock");
-        return;
+      window.alert("Sorry. Product is out of stock");
+      return;
     }
 
     dispatch({ type: "CART_ADD_ITEM", payload: { ...product, qty } });
+    router.push("/cart");
   };
 
   return (

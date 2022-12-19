@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
 import React, { useContext } from "react";
-import { ProductDataType } from "../utils/data";
 import { Store } from "../utils/Store";
 
 type LayoutProps = {
@@ -10,7 +9,7 @@ type LayoutProps = {
 };
 
 export default function Layout({ title, children }: LayoutProps) {
-  const { state, dispatch } = useContext(Store);
+  const { state } = useContext(Store);
 
   return (
     <>
