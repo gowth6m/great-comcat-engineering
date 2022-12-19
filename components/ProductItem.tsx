@@ -14,7 +14,7 @@ export default function ProductItem({ product }: ProductItemProps) {
         <img
           src={product.image}
           alt={product.slug}
-          className="rounded shadow"
+          className="w-full rounded shadow object-cover"
         />
       </Link>
 
