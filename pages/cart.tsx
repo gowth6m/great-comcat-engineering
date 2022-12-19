@@ -18,6 +18,11 @@ export default function CartScreen() {
     dispatch({ type: "CART_REMOVE_ITEM", payload: item });
   };
 
+  const updateCartHandler = (item: CartProductDataType, qty: any) => {
+    const quantity = Number(qty);
+    dispatch({ type: "CART_ADD_ITEM", payload: { ...item, qty: quantity } });
+  };
+
   return (
     <Layout title="Shopping Cart">
       <h1 className="mb-4 text-xl">Shopping Cart</h1>
@@ -65,7 +70,27 @@ export default function CartScreen() {
                         {item.name}
                       </Link>
                     </td>
-                    <td className="px-4 py-2 text-sm text-right">{item.qty}</td>
+                    <td className="px-4 py-2 text-sm text-right">
+                      <select
+                        className="bg-white"
+                        value={item.qty}
+                        onChange={(e) => {
+                          console.log("before on change handler ");
+                          updateCartHandler(item, e.target.value);
+                          console.log("after on change handler");
+                          console.log(e.target.value);
+                          console.log(item);
+                        }}
+                      >
+                        {Array.from(Array(item.countInStock).keys()).map(
+                          (x) => (
+                            <option key={x + 1} value={x + 1}>
+                              {x + 1}
+                            </option>
+                          )
+                        )}
+                      </select>
+                    </td>
                     <td className="px-4 py-2 text-sm text-right">
                       {item.price}
                     </td>

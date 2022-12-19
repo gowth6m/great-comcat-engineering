@@ -1,5 +1,6 @@
 import { createContext, useReducer } from "react";
 import { ProductDataType } from "./data";
+import Cookie from "typescript-cookie";
 
 export const Store = createContext({} as any);
 
@@ -7,13 +8,14 @@ const initialState = {
   cart: { cartItems: [] },
 };
 
+
 interface ICart {
   cartItems: ProductDataType[];
 }
 
 interface IAction {
   type: string;
-  payload: ProductDataType;
+  payload: CartProductDataType;
 }
 
 interface IState {
