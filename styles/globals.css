@@ -91,13 +91,15 @@ body {
 }
 
 body {
-  color: rbg(--foreground-rgb);
+  /* color: rbg(--foreground-rgb);
   background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--background-start-rgb)); */
+    background-color: #F8F8F8;
+    color: black;
 }
 
 a {
@@ -112,7 +114,7 @@ a {
 }
 
 .card {
-  @apply mb-5 block rounded-lg border border-gray-200 shadow-md;
+  @apply mb-5 block rounded-lg border border-gray-200 shadow-md bg-[#D66853];
 }
 
 .primary-button {

@@ -1,9 +1,6 @@
-import { Inter } from "@next/font/google";
 import Layout from "../components/Layout";
 import ProductItem from "../components/ProductItem";
 import data from "../utils/data";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
