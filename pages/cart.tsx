@@ -2,11 +2,11 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { useContext } from "react";
 import Layout from "../components/Layout";
-import { ProductDataType } from "../utils/data";
 import { CartProductDataType, Store } from "../utils/Store";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 
-export default function CartScreen() {
+function CartScreen() {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
 
@@ -75,11 +75,7 @@ export default function CartScreen() {
                         className="bg-white"
                         value={item.qty}
                         onChange={(e) => {
-                          console.log("before on change handler ");
                           updateCartHandler(item, e.target.value);
-                          console.log("after on change handler");
-                          console.log(e.target.value);
-                          console.log(item);
                         }}
                       >
                         {Array.from(Array(item.countInStock).keys()).map(
@@ -132,3 +128,5 @@ export default function CartScreen() {
     </Layout>
   );
 }
+
+export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });

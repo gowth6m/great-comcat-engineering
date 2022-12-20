@@ -1,13 +1,11 @@
 import { createContext, useReducer } from "react";
 import { ProductDataType } from "./data";
-import Cookie from "typescript-cookie";
-
+import Cookies from 'js-cookie'
 export const Store = createContext({} as any);
 
 const initialState = {
-  cart: { cartItems: [] },
+    cart: Cookies.get("cart") ? JSON.parse(Cookies.get("cart")!) : { cartItems: [] },
 };
-
 
 interface ICart {
   cartItems: ProductDataType[];
@@ -37,6 +35,7 @@ export type CartProductDataType = {
 };
 
 function reducer(state: IState, action: IAction) {
+  console.log(JSON.parse(Cookies.get("cart")!));
   switch (action.type) {
     case "CART_ADD_ITEM": {
       const newItem = action.payload;
@@ -48,7 +47,7 @@ function reducer(state: IState, action: IAction) {
             item.slug === existItem.slug ? newItem : item
           )
         : [...state.cart.cartItems, newItem];
-
+        Cookies.set("cart", JSON.stringify({ ...state.cart, cartItems }));
       return { ...state, cart: { ...state.cart, cartItems } };
     }
 
@@ -56,6 +55,7 @@ function reducer(state: IState, action: IAction) {
       const cartItems = state.cart.cartItems.filter(
         (item) => item.slug !== action.payload.slug
       );
+      Cookies.set("cart", JSON.stringify({ ...state.cart, cartItems }));
       return { ...state, cart: { ...state.cart, cartItems } };
     }
     default:
