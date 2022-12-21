@@ -6,11 +6,12 @@ export const Store = createContext({} as any);
 const initialState = {
   cart: Cookies.get("cart")
     ? JSON.parse(Cookies.get("cart")!)
-    : { cartItems: [] },
+    : { cartItems: [], shippingAddress: {} },
 };
 
 interface ICart {
   cartItems: ProductDataType[];
+  shippingAddress?: {};
 }
 
 interface IAction {
@@ -70,6 +71,20 @@ function reducer(state: IState, action: IAction) {
         },
       };
     }
+
+    case "SAVE_SHIPPING_ADDRESS": {
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          shippingAddress: {
+            ...state.cart.shippingAddress,
+            ...action.payload,
+          },
+        },
+      };
+    }
+
     default:
       return state;
   }
