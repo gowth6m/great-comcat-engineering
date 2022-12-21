@@ -72,6 +72,11 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+      - name: Setup env files
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+        run: |
+          echo $MONGODB_URI
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Static HTML export with Next.js
@@ -80,14 +85,6 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           path: ./out
-
-  create-envfile:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Make envfile
-      uses: gowth6m/great-comcat-engineering
-      with:
-        MONGODB_URI: ${{ secrets.MONGODB_URI }}
 
   # Deployment job
   deploy:
