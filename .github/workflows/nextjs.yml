@@ -85,7 +85,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Make envfile
-      uses: actions/create-envfile@v1.3
+      uses: actions/upload-pages-artifact@v1
       with:
         MONGODB_URI: ${{ secrets.MONGODB_URI }}
 
