@@ -3,9 +3,10 @@ import Link from "next/link";
 import React, { useContext, useEffect } from "react";
 import { Store } from "../utils/Store";
 import { Menu } from "@headlessui/react";
-import { signIn, signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
+import Cookies from "js-cookie";
 import DropdownLink from "./DropdownLink";
+import { signOut } from "next-auth/react";
 
 type LayoutProps = {
   title?: string;
@@ -14,7 +15,7 @@ type LayoutProps = {
 
 export default function Layout({ title, children }: LayoutProps) {
   const { status, data: session } = useSession();
-  const { state } = useContext(Store);
+  const { state, dispatch } = useContext(Store);
 
   const [cartItemsCount, setCartItemsCount] = React.useState(0);
 
@@ -25,6 +26,8 @@ export default function Layout({ title, children }: LayoutProps) {
   }, [cartItemsCount, state.cart.cartItems]);
 
   const logoutHandler = async () => {
+    Cookies.remove("cart");
+    dispatch({ type: "CART_RESET" });
     signOut({
       callbackUrl: "/login",
     });
@@ -80,7 +83,9 @@ export default function Layout({ title, children }: LayoutProps) {
                     <DropdownLink
                       className="dropdown-link"
                       href="#"
-                      onClick={logoutHandler}
+                      onClick={() => {
+                        logoutHandler();
+                      }}
                     >
                       Logout
                     </DropdownLink>

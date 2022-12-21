@@ -1,10 +1,12 @@
 import { createContext, useReducer } from "react";
 import { ProductDataType } from "./data";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 export const Store = createContext({} as any);
 
 const initialState = {
-    cart: Cookies.get("cart") ? JSON.parse(Cookies.get("cart")!) : { cartItems: [] },
+  cart: Cookies.get("cart")
+    ? JSON.parse(Cookies.get("cart")!)
+    : { cartItems: [] },
 };
 
 interface ICart {
@@ -46,7 +48,7 @@ function reducer(state: IState, action: IAction) {
             item.slug === existItem.slug ? newItem : item
           )
         : [...state.cart.cartItems, newItem];
-        Cookies.set("cart", JSON.stringify({ ...state.cart, cartItems }));
+      Cookies.set("cart", JSON.stringify({ ...state.cart, cartItems }));
       return { ...state, cart: { ...state.cart, cartItems } };
     }
 
@@ -56,6 +58,17 @@ function reducer(state: IState, action: IAction) {
       );
       Cookies.set("cart", JSON.stringify({ ...state.cart, cartItems }));
       return { ...state, cart: { ...state.cart, cartItems } };
+    }
+
+    case "CART_RESET": {
+      return {
+        ...state,
+        cart: {
+          cartItems: [],
+          shippingAddress: { location: {} },
+          paymentMethod: "",
+        },
+      };
     }
     default:
       return state;
