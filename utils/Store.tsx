@@ -35,7 +35,6 @@ export type CartProductDataType = {
 };
 
 function reducer(state: IState, action: IAction) {
-  console.log(JSON.parse(Cookies.get("cart")!));
   switch (action.type) {
     case "CART_ADD_ITEM": {
       const newItem = action.payload;
