@@ -19,6 +19,7 @@ async function connect() {
     console.log("Using existing connection");
     return mongoose.connection.asPromise();
   }
+  mongoose.set("strictQuery", false);
   await mongoose.connect(process.env.MONGODB_URI!);
   console.log("New connection");
   connection.isConnected = mongoose.connections[0].readyState;

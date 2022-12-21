@@ -124,5 +124,5 @@ a {
 input,
 select,
 textarea {
-  @apply rounded border p-2 outline-none ring-indigo-300 focus:ring text-white;
+  @apply rounded border p-2 outline-none ring-indigo-300 focus:ring text-gray-400 bg-gray-800;
 }

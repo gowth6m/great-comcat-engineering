@@ -1,4 +1,6 @@
-import bcrypt from "bcrypt";
+// import bcrypt from "bcryptjs";
+
+var bcrypt = require('bcryptjs');
 
 export type ProductDataType = {
   name: string;

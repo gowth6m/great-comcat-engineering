@@ -2,6 +2,8 @@ import Head from "next/head";
 import Link from "next/link";
 import React, { useContext, useEffect } from "react";
 import { Store } from "../utils/Store";
+import { signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 type LayoutProps = {
   title?: string;
@@ -9,6 +11,7 @@ type LayoutProps = {
 };
 
 export default function Layout({ title, children }: LayoutProps) {
+  const { status, data: session } = useSession();
   const { state } = useContext(Store);
 
   const [cartItemsCount, setCartItemsCount] = React.useState(0);
@@ -48,9 +51,17 @@ export default function Layout({ title, children }: LayoutProps) {
                   </span>
                 )}
               </Link>
-              <Link className="p-6" href="/login">
-                Login
-              </Link>
+              {/* <Link className="p-6" href="/login"> */}
+              {status === "loading" ? (
+                "Loading"
+              ) : session?.user ? (
+                <Link className="p-6" href="/">{session.user.name!.split(" ")[0]}</Link>
+              ) : (
+                <Link className="p-6" href="/login">
+                  Login
+                </Link>
+              )}
+              {/* </Link> */}
             </div>
           </nav>
         </header>

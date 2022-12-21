@@ -5,4 +5,5 @@ const nextConfig = {
     domains: ['localhost', 'picsum.photos'] // <== Domain name
   }
 }
+
 module.exports = nextConfig
