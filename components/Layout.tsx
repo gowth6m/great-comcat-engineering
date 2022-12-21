@@ -2,8 +2,10 @@ import Head from "next/head";
 import Link from "next/link";
 import React, { useContext, useEffect } from "react";
 import { Store } from "../utils/Store";
-import { signIn } from "next-auth/react";
+import { Menu } from "@headlessui/react";
+import { signIn, signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
+import DropdownLink from "./DropdownLink";
 
 type LayoutProps = {
   title?: string;
@@ -21,6 +23,12 @@ export default function Layout({ title, children }: LayoutProps) {
       state.cart.cartItems.reduce((a: any, c: any) => a + c.qty, 0)
     );
   }, [cartItemsCount, state.cart.cartItems]);
+
+  const logoutHandler = async () => {
+    signOut({
+      callbackUrl: "/login",
+    });
+  };
 
   return (
     <>
@@ -51,17 +59,38 @@ export default function Layout({ title, children }: LayoutProps) {
                   </span>
                 )}
               </Link>
-              {/* <Link className="p-6" href="/login"> */}
+
+              {/* PROFILE BUTTON OR SIGN IN BUTTON */}
               {status === "loading" ? (
                 "Loading"
               ) : session?.user ? (
-                <Link className="p-6" href="/">{session.user.name!.split(" ")[0]}</Link>
+                // <Link className="p-6" href="/">{session.user.name!.split(" ")[0]}</Link>
+                <Menu as="div" className="relative inline-block">
+                  <Menu.Button className="p-2">{session.user.name}</Menu.Button>
+                  <Menu.Items className="absolute right-0 w-56 origin-top-right bg-white shadow-lg">
+                    <DropdownLink className="dropdown-link" href="/profile">
+                      Profile
+                    </DropdownLink>
+                    <DropdownLink
+                      className="dropdown-link"
+                      href="/order-history"
+                    >
+                      Order History
+                    </DropdownLink>
+                    <DropdownLink
+                      className="dropdown-link"
+                      href="#"
+                      onClick={logoutHandler}
+                    >
+                      Logout
+                    </DropdownLink>
+                  </Menu.Items>
+                </Menu>
               ) : (
                 <Link className="p-6" href="/login">
                   Login
                 </Link>
               )}
-              {/* </Link> */}
             </div>
           </nav>
         </header>

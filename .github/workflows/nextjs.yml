@@ -85,7 +85,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Make envfile
-      uses: actions/upload-pages-artifact@v1
+      uses: gowth6m/great-comcat-engineering
       with:
         MONGODB_URI: ${{ secrets.MONGODB_URI }}
 
