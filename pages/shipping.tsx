@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { Store } from "../utils/Store";
 import Cookies from "js-cookie";
 import { Auth } from "../utils/Auth";
+import router from "next/router";
 
 export default function ShippingScreen() {
   const {
@@ -22,7 +23,7 @@ export default function ShippingScreen() {
     setValue("fullName", shippingAddress.fullName);
     setValue("address", shippingAddress.address);
     setValue("city", shippingAddress.city);
-    setValue("postalCode", shippingAddress.postalCode);
+    setValue("postcode", shippingAddress.postcode);
     setValue("country", shippingAddress.country);
   }, [setValue, shippingAddress]);
 
@@ -30,14 +31,14 @@ export default function ShippingScreen() {
     fullName,
     address,
     city,
-    postalCode,
+    postcode,
     country,
   }: any) => {
-    console.log(fullName, address, city, postalCode, country);
+    console.log(fullName, address, city, postcode, country);
 
     dispatch({
       type: "SAVE_SHIPPING_ADDRESS",
-      payload: { fullName, address, city, postalCode, country },
+      payload: { fullName, address, city, postcode, country },
     });
     Cookies.set(
       "cart",
@@ -47,11 +48,12 @@ export default function ShippingScreen() {
           fullName,
           address,
           city,
-          postalCode,
+          postcode,
           country,
         },
       })
     );
+    router.push("/payment");
   };
 
   return (

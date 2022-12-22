@@ -122,6 +122,10 @@ a {
   @apply rounded bg-amber-300 py-2 px-4 shadow outline-none hover:bg-amber-400 active:bg-amber-500;
 }
 
+.default-button {
+  @apply rounded bg-red-300 py-2 px-4 shadow outline-none hover:bg-red-400 active:bg-red-500;
+}
+
 input,
 select,
 textarea {

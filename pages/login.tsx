@@ -26,7 +26,6 @@ export default function LoginScreen() {
 
   const submitHandler = async ({ email, password }: any) => {
     try {
-      console.log("trying to login");
       const result = await signIn("credentials", {
         redirect: false,
         email: email,
@@ -35,6 +34,7 @@ export default function LoginScreen() {
       console.log(result);
     } catch (error) {
       console.log(getError(error));
+      alert(getError(error));
     }
   };
 
