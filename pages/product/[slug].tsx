@@ -37,8 +37,9 @@ export default function ProductScreen() {
       </div>
       <div className="grid md:grid-cols-4 md:gap-3">
         {/* Image */}
-        <div className="md:col-span-2">
+        <div className="md:col-span-2 rounded-lg">
           <Image
+            className="rounded-lg"
             src={product.image}
             alt={product.name}
             width={640}

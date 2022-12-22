@@ -7,6 +7,12 @@ import { useSession } from "next-auth/react";
 import Cookies from "js-cookie";
 import DropdownLink from "./DropdownLink";
 import { signOut } from "next-auth/react";
+import {
+  faShoppingBasket,
+  faBars,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type LayoutProps = {
   title?: string;
@@ -16,8 +22,8 @@ type LayoutProps = {
 export default function Layout({ title, children }: LayoutProps) {
   const { status, data: session } = useSession();
   const { state, dispatch } = useContext(Store);
-
   const [cartItemsCount, setCartItemsCount] = React.useState(0);
+  const [menuOpened, setMenuOpened] = React.useState(false);
 
   useEffect(() => {
     setCartItemsCount(
@@ -48,19 +54,36 @@ export default function Layout({ title, children }: LayoutProps) {
       <div className="flex min-h-screen flex-col justify-between ">
         {/* NAV BAR */}
         <header>
-          <nav className="flex h-12 justify-between items-center bg-[#7D4E57]">
+          <nav className="fixed w-full flex h-12 justify-between items-center bg-[#7D4E57]">
+            <Link
+              href="#"
+              className="text-lg font-bold px-6"
+              onClick={() => {
+                setMenuOpened(!menuOpened);
+              }}
+            >
+              {!menuOpened ? (
+                <FontAwesomeIcon icon={faBars} className="mx-2 w-7" />
+              ) : (
+                <FontAwesomeIcon icon={faXmark} className="mx-2 w-7" />
+              )}
+            </Link>
+
             <Link href="/" className="text-lg font-bold px-6">
               GCE
             </Link>
 
-            <div className="">
-              <Link className="p-2" href="/cart">
-                Cart
+            <div className="flex flex-row justify-center items-center">
+              <Link
+                className="p-2 flex flex-row justify-center items-center"
+                href="/cart"
+              >
                 {cartItemsCount > 0 && (
                   <span className="bg-red-500 rounded-full text-white px-2 mx-1">
                     {cartItemsCount}
                   </span>
                 )}
+                <FontAwesomeIcon icon={faShoppingBasket} className="mx-2 w-7" />
               </Link>
 
               {/* PROFILE BUTTON OR SIGN IN BUTTON */}
