@@ -30,7 +30,7 @@ function CartScreen() {
           <>
             <div className="mb-4 text-2xl text-center font-semibold">
               Your cart total is £
-              {cartItems.reduce((a: any, c: any) => a + c.price * c.qty, 0)}
+              {cartItems.reduce((a: any, c: any) => a + c.price * c.qty, 0).toLocaleString()}
             </div>
             <hr />
 
@@ -125,7 +125,7 @@ function CartScreen() {
                     {cartItems.reduce(
                       (a: any, c: any) => a + c.price * c.qty,
                       0
-                    )}
+                    ).toLocaleString()}
                   </div>
                 </div>
                 <div className="w-full flex">
@@ -152,7 +152,7 @@ function CartScreen() {
                     {cartItems.reduce(
                       (a: any, c: any) => a + c.price * c.qty,
                       0
-                    )}
+                    ).toLocaleString()}
                   </div>
                 </div>
                 <div className="flex flex-row items-center justify-between">
@@ -166,7 +166,7 @@ function CartScreen() {
                 <div className="">Total</div>
                 <div className="">
                   £
-                  {cartItems.reduce((a: any, c: any) => a + c.price * c.qty, 0)}
+                  {cartItems.reduce((a: any, c: any) => a + c.price * c.qty, 0).toLocaleString()}
                 </div>
               </div>
               <div className="w-full flex justify-end">
