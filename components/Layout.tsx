@@ -7,6 +7,8 @@ import { useSession } from "next-auth/react";
 import Cookies from "js-cookie";
 import DropdownLink from "./DropdownLink";
 import { signOut } from "next-auth/react";
+import useWindowDimensions from "../utils/window";
+
 import {
   faShoppingBasket,
   faBars,
@@ -25,6 +27,7 @@ export default function Layout({ title, children }: LayoutProps) {
   const { state, dispatch } = useContext(Store);
   const [cartItemsCount, setCartItemsCount] = React.useState(0);
   const [menuOpened, setMenuOpened] = React.useState(false);
+  const { width, height } = useWindowDimensions();
 
   useEffect(() => {
     setCartItemsCount(
@@ -55,7 +58,7 @@ export default function Layout({ title, children }: LayoutProps) {
       <div className="flex min-h-screen flex-col justify-between ">
         {/* NAV BAR */}
         <header className="w-full">
-          <nav className="fixed w-full flex h-12  mx-0 justify-between items-center bg-[var(--black)]">
+          <nav className="fixed w-full flex h-12  mx-0 justify-between items-center bg-[var(--black)] overflow-hidden">
             <Link
               href="#"
               className="text-lg font-bold px-4"
@@ -64,11 +67,14 @@ export default function Layout({ title, children }: LayoutProps) {
               }}
             >
               {!menuOpened ? (
-                <FontAwesomeIcon icon={faBars} className="mx-2 w-7 md:hidden" />
+                <FontAwesomeIcon
+                  icon={faBars}
+                  className="z-50 mx-2 w-7 md:hidden"
+                />
               ) : (
                 <FontAwesomeIcon
                   icon={faXmark}
-                  className="mx-2 w-7 md:hidden"
+                  className="z-50 mx-2 w-7 md:hidden"
                 />
               )}
             </Link>
@@ -77,17 +83,26 @@ export default function Layout({ title, children }: LayoutProps) {
               GCE
             </Link>
 
-            <div className="hidden md:flex justify-center items-center flex-auto">
-              <Link href="/" className="text-lg font-bold px-4">
+            <div
+              className={
+                menuOpened
+                  ? "navbar"
+                  : "hidden" +
+                    (Number(width) > 768
+                      ? "hidden md:flex justify-center items-center flex-auto"
+                      : "")
+              }
+            >
+              <Link href="/" className="text-lg font-bold px-4 py-4 md:py-4">
                 Home
               </Link>
-              <Link href="/" className="text-lg font-bold px-4">
+              <Link href="/" className="text-lg font-bold px-4 py-4 md:py-4">
                 Categories
               </Link>
-              <Link href="/" className="text-lg font-bold px-4">
+              <Link href="/" className="text-lg font-bold px-4 py-4 md:py-4">
                 My Account
               </Link>
-              <Link href="/" className="text-lg font-bold px-4">
+              <Link href="/" className="text-lg font-bold px-4 pt-4 pb-8 md:py-4">
                 Contact
               </Link>
             </div>

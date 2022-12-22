@@ -154,3 +154,7 @@ select {
 .img {
   @apply rounded-2xl;
 }
+
+.navbar {
+  @apply flex justify-start items-center flex-auto fixed w-full flex-col z-20 h-auto bg-[var(--black)] top-12;
+}
