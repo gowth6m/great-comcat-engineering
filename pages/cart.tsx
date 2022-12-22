@@ -25,106 +25,194 @@ function CartScreen() {
 
   return (
     <Layout title="Shopping Cart">
-      <h1 className="mb-4 text-xl">Shopping Cart</h1>
+      <div className="container mx-auto flex align-middle justify-center flex-col">
+        {cartItems.length !== 0 ? (
+          <>
+            <div className="mb-4 text-2xl text-center font-semibold">
+              Your cart total is £
+              {cartItems.reduce((a: any, c: any) => a + c.price * c.qty, 0)}
+            </div>
+            <hr />
 
-      {cartItems.length === 0 ? (
-        <div>
-          Cart is empty <Link href="/">Go shopping</Link>
-        </div>
-      ) : (
-        <div className="grid md:grid-cols-4 md:gap-5">
-          <div className="overflow-x-auto md:col-span-3">
-            <table className="min-w-full">
-              <thead className="border-b">
-                <tr>
-                  <th className="px-4 py-2 text-sm font-medium text-left text-gray-500 uppercase bg-gray-100">
-                    Item
-                  </th>
-                  <th className="px-4 py-2 text-sm font-medium text-right text-gray-500 uppercase bg-gray-100">
-                    Quantity
-                  </th>
-
-                  <th className="px-4 py-2 text-sm font-medium text-right text-gray-500 uppercase bg-gray-100">
-                    Price
-                  </th>
-                  <th className="px-4 py-2 text-sm font-medium text-gray-500 uppercase bg-gray-100">
-                    Action
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
+            <div className="flex flex-col md:flex-row justify-between items-start my-4">
+              <div className="flex flex-col w-full md:pr-8 ">
                 {cartItems.map((item: CartProductDataType) => (
-                  <tr key={item.slug} className="border-b">
-                    <td className="px-4 py-2 text-sm text-left">
-                      <Link
-                        className="flex items-center"
-                        href={"/product/" + item.slug}
-                      >
+                  <div key={item.slug}>
+                    <div className="flex flex-col md:flex-row justify-between items-center my-4">
+                      <div className="flex">
                         <Image
+                          className="img"
                           src={item.image}
                           alt={item.slug}
-                          width={50}
-                          height={50}
+                          width={150}
+                          height={150}
                         ></Image>
-                        &nbsp;
-                        {item.name}
-                      </Link>
-                    </td>
-                    <td className="px-4 py-2 text-sm text-right">
-                      <select
-                        className="bg-white"
-                        value={item.qty}
-                        onChange={(e) => {
-                          updateCartHandler(item, e.target.value);
-                        }}
-                      >
-                        {Array.from(Array(item.countInStock).keys()).map(
-                          (x) => (
-                            <option key={x + 1} value={x + 1}>
-                              {x + 1}
-                            </option>
-                          )
-                        )}
-                      </select>
-                    </td>
-                    <td className="px-4 py-2 text-sm text-right">
-                      {item.price}
-                    </td>
-                    <td className="px-4 py-2 text-sm text-center">
-                      <button
-                        onClick={() => {
-                          removeFromCartHandler(item);
-                        }}
-                      >
-                        Remove
-                      </button>
-                    </td>
-                  </tr>
+                      </div>
+
+                      <div className="flex flex-col justify-center items-center md:items-start w-full mt-6">
+                        <div className="flex flex-col w-full md:flex-row ">
+                          <Link
+                            className="text-black hover:text-black font-semibold text-left md:mx-6 md:flex-1"
+                            href={`/product/${item.slug}`}
+                          >
+                            {item.name}
+                          </Link>
+
+                          <div className="flex flex-row justify-between md:justify-end items-center w-full md:flex-1">
+                            <select
+                              className="bg-white md:mx-6"
+                              value={item.qty}
+                              onChange={(e) => {
+                                updateCartHandler(item, e.target.value);
+                              }}
+                            >
+                              {Array.from(Array(item.countInStock).keys()).map(
+                                (x) => (
+                                  <option key={x + 1} value={x + 1}>
+                                    {x + 1}
+                                  </option>
+                                )
+                              )}
+                            </select>
+
+                            <div className="w-16 text-right">£{item.price}</div>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col items-end w-full">
+                          <button
+                            onClick={() => {
+                              removeFromCartHandler(item);
+                            }}
+                            className="text-[var(--blue)] text-right"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <hr />
+                  </div>
                 ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="card p-5">
-            <ul>
-              <li>
-                <div className="pb-3 text-xl">
-                  Subtotal ({cartItems.reduce((a: any, c: any) => a + c.qty, 0)}
-                  ) : £
+              </div>
+
+              {/* DESKTOP TOTAL CONTAINER */}
+              <div className="hidden md:flex flex-col justify-center items-center w-2/6 bg-[var(--blue)] p-4 rounded-xl text-white">
+                <div className="my-2 w-full">
+                  <div className="flex flex-row items-center justify-between">
+                    <div className="">
+                      Shipping (
+                      {cartItems.reduce((a: any, c: any) => a + c.qty, 0)})
+                    </div>
+                    <div className="">
+                      £
+                      {cartItems.reduce(
+                        (a: any, c: any) => a + c.price * c.qty,
+                        0
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex flex-row items-center justify-between">
+                    <div className="">Shipping</div>
+                    <div className="">FREE</div>
+                  </div>
+                </div>
+
+                <div className="flex flex-row items-center justify-between text-xl font-semibold my-1 w-full">
+                  <div className="">Total</div>
+                  <div className="">
+                    £
+                    {cartItems.reduce(
+                      (a: any, c: any) => a + c.price * c.qty,
+                      0
+                    )}
+                  </div>
+                </div>
+                <div className="w-full flex">
+                  <button
+                    className="secondary-button my-2 w-full text-xl"
+                    onClick={() => router.push("/login" && "/shipping")}
+                  >
+                    Check Out
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* MOBILE TOTAL CONTAINER */}
+            <div className="md:hidden">
+              <div className="my-2">
+                <div className="flex flex-row items-center justify-between">
+                  <div className="">
+                    Shipping (
+                    {cartItems.reduce((a: any, c: any) => a + c.qty, 0)})
+                  </div>
+                  <div className="">
+                    £
+                    {cartItems.reduce(
+                      (a: any, c: any) => a + c.price * c.qty,
+                      0
+                    )}
+                  </div>
+                </div>
+                <div className="flex flex-row items-center justify-between">
+                  <div className="">Shipping</div>
+                  <div className="">FREE</div>
+                </div>
+              </div>
+              <hr />
+
+              <div className="flex flex-row items-center justify-between text-xl font-semibold my-1">
+                <div className="">Total</div>
+                <div className="">
+                  £
                   {cartItems.reduce((a: any, c: any) => a + c.price * c.qty, 0)}
                 </div>
-              </li>
-              <li>
+              </div>
+              <div className="w-full flex justify-end">
                 <button
+                  className="primary-button my-2 w-full md:w-2/6 text-xl"
                   onClick={() => router.push("/login" && "/shipping")}
-                  className="primary-button w-full"
                 >
                   Check Out
                 </button>
-              </li>
-            </ul>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="mb-4 text-2xl text-center font-semibold md:w-2/6 md:mx-auto">
+            Cart is empty.
+            <br />
+            <Link href="/">
+              <div className="text-black primary-button my-4">
+                Continue Shopping
+              </div>
+            </Link>
           </div>
+        )}
+
+        <div>
+          <hr />
+          <br />
+          Need more help?{" "}
+          <Link
+            href="/contact"
+            className="text-[var(--blue)] hover:text-[var(--black)]"
+          >
+            Contact us
+          </Link>{" "}
+          or call us on{" "}
+          <a
+            href="tel:01234567890"
+            className="text-[var(--blue)] hover:text-[var(--black)]"
+          >
+            01234 567890
+          </a>
+          .
+          <br />
+          <br />
         </div>
-      )}
+      </div>
     </Layout>
   );
 }

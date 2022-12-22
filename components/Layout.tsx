@@ -11,6 +11,7 @@ import {
   faShoppingBasket,
   faBars,
   faXmark,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -53,37 +54,55 @@ export default function Layout({ title, children }: LayoutProps) {
 
       <div className="flex min-h-screen flex-col justify-between ">
         {/* NAV BAR */}
-        <header>
-          <nav className="fixed w-full flex h-12 justify-between items-center bg-[#7D4E57]">
+        <header className="w-full">
+          <nav className="fixed w-full flex h-12  mx-0 justify-between items-center bg-[var(--black)]">
             <Link
               href="#"
-              className="text-lg font-bold px-6"
+              className="text-lg font-bold px-4"
               onClick={() => {
                 setMenuOpened(!menuOpened);
               }}
             >
               {!menuOpened ? (
-                <FontAwesomeIcon icon={faBars} className="mx-2 w-7" />
+                <FontAwesomeIcon icon={faBars} className="mx-2 w-7 md:hidden" />
               ) : (
-                <FontAwesomeIcon icon={faXmark} className="mx-2 w-7" />
+                <FontAwesomeIcon
+                  icon={faXmark}
+                  className="mx-2 w-7 md:hidden"
+                />
               )}
             </Link>
 
-            <Link href="/" className="text-lg font-bold px-6">
+            <Link href="/" className="text-lg font-bold text-white flex-1">
               GCE
             </Link>
 
-            <div className="flex flex-row justify-center items-center">
+            <div className="hidden md:flex justify-center items-center flex-auto">
+              <Link href="/" className="text-lg font-bold px-4">
+                Home
+              </Link>
+              <Link href="/" className="text-lg font-bold px-4">
+                Categories
+              </Link>
+              <Link href="/" className="text-lg font-bold px-4">
+                My Account
+              </Link>
+              <Link href="/" className="text-lg font-bold px-4">
+                Contact
+              </Link>
+            </div>
+
+            <div className="flex flex-row justify-end items-center flex-1 pr-6">
               <Link
-                className="p-2 flex flex-row justify-center items-center"
+                className="flex flex-row justify-center items-center"
                 href="/cart"
               >
                 {cartItemsCount > 0 && (
-                  <span className="bg-red-500 rounded-full text-white px-2 mx-1">
+                  <span className="bg-red-500 rounded-full text-white px-2">
                     {cartItemsCount}
                   </span>
                 )}
-                <FontAwesomeIcon icon={faShoppingBasket} className="mx-2 w-7" />
+                <FontAwesomeIcon icon={faShoppingBasket} className="ml-2 w-7" />
               </Link>
 
               {/* PROFILE BUTTON OR SIGN IN BUTTON */}
@@ -92,7 +111,10 @@ export default function Layout({ title, children }: LayoutProps) {
               ) : session?.user ? (
                 // <Link className="p-6" href="/">{session.user.name!.split(" ")[0]}</Link>
                 <Menu as="div" className="relative inline-block">
-                  <Menu.Button className="p-2">{session.user.name}</Menu.Button>
+                  <Menu.Button className=" py-4 text-white">
+                    {/* {session.user.name?.split(" ")[0]} */}
+                    <FontAwesomeIcon icon={faUser} className="w-7" />
+                  </Menu.Button>
                   <Menu.Items className="absolute right-0 w-56 origin-top-right bg-white shadow-lg">
                     <DropdownLink className="dropdown-link" href="/profile">
                       Profile
@@ -124,10 +146,14 @@ export default function Layout({ title, children }: LayoutProps) {
         </header>
 
         {/* BODY */}
-        <main className="container m-auto mt-4 px-4">{children}</main>
+        <main className="container m-auto mt-4 px-4">
+          <br />
+          <br />
+          {children}
+        </main>
 
         {/* FOOTER */}
-        <footer className="flex h-10 justify-center items-center bg-slate-400">
+        <footer className="flex h-20 justify-center items-center bg-[var(--black)] text-white">
           <p>Copyright &#169; 2022 Great Comcat Engineering</p>
         </footer>
       </div>

@@ -84,6 +84,13 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --black: #0B2027;
+  --white: #F8F8F8;
+  --blue: #40798C;
+}
+
+
 html,
 body {
   max-width: 100vw;
@@ -105,7 +112,7 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-  @apply text-orange-300 hover:text-red-900
+  @apply text-[var(--white)] hover:text-[var(--white)] 
 }
 
 @media (prefers-color-scheme: dark) {
@@ -115,23 +122,35 @@ a {
 }
 
 .card {
-  @apply mb-5 block rounded-xl border border-gray-200 shadow-md bg-[#D66853];
+  @apply mb-5 block rounded-xl border border-gray-200 shadow-md bg-[var(--white)];
 }
 
 .primary-button {
-  @apply rounded-xl bg-blue-600 py-2 px-4 shadow outline-none hover:bg-blue-500 active:bg-blue-400 text-white;
+  @apply cursor-pointer rounded-xl bg-[var(--blue)] py-2 px-4 shadow outline-none hover:bg-[var(--black)] active:bg-[var(--blue)] text-white text-center;
 }
 
 .default-button {
-  @apply rounded-xl bg-red-300 py-2 px-4 shadow outline-none hover:bg-red-400 active:bg-red-500;
+  @apply cursor-pointer rounded-xl bg-[var(--blue)] py-2 px-4 shadow outline-none hover:bg-[var(--black)] active:bg-[var(--blue)] text-white text-center;
+}
+
+.secondary-button {
+  @apply cursor-pointer rounded-xl bg-[var(--white)] py-2 px-4 shadow outline-none hover:bg-[var(--black)] hover:text-white active:bg-[var(--blue)] text-black text-center;
 }
 
 input,
-select,
 textarea {
-  @apply rounded-xl border p-2 outline-none ring-indigo-300 focus:ring text-gray-400 bg-gray-800;
+  @apply rounded-xl border p-2 outline-none ring-[var(--blue)] focus:ring text-gray-400 bg-gray-800;
+}
+
+select {
+  background-color: var(--white) !important;
+  @apply rounded-xl p-2 outline-none ring-[var(--blue)] focus:ring text-black;
 }
 
 .dropdown-link {
-  @apply flex p-2 hover:bg-gray-400;
+  @apply flex p-2 hover:bg-gray-400 text-black;
+}
+
+.img {
+  @apply rounded-2xl;
 }
