@@ -127,7 +127,7 @@ export default function Layout({ title, children }: LayoutProps) {
         <main className="container m-auto mt-4 px-4">{children}</main>
 
         {/* FOOTER */}
-        <footer className="flex h-10 justify-center items-center bg-slate-900">
+        <footer className="flex h-10 justify-center items-center bg-slate-400">
           <p>Copyright &#169; 2022 Great Comcat Engineering</p>
         </footer>
       </div>
