@@ -30,13 +30,15 @@ function CartScreen() {
           <>
             <div className="mb-4 text-2xl text-center font-semibold">
               Your cart total is £
-              {cartItems.reduce((a: any, c: any) => a + c.price * c.qty, 0).toLocaleString()}
+              {cartItems
+                .reduce((a: any, c: any) => a + c.price * c.qty, 0)
+                .toLocaleString()}
             </div>
             <hr />
 
             <div className="flex flex-col md:flex-row justify-between items-start my-4">
               <div className="flex flex-col w-full md:pr-8 ">
-                {cartItems.map((item: CartProductDataType) => (
+                {cartItems.map((item: CartProductDataType, count: number) => (
                   <div key={item.slug}>
                     <div className="flex flex-col md:flex-row justify-between items-center my-4">
                       <div className="flex">
@@ -91,7 +93,7 @@ function CartScreen() {
                         </div>
                       </div>
                     </div>
-                    <hr />
+                    {count === cartItems.length - 1 ? null : <hr />}
                   </div>
                 ))}
               </div>
@@ -122,10 +124,9 @@ function CartScreen() {
                   <div className="">Total</div>
                   <div className="">
                     £
-                    {cartItems.reduce(
-                      (a: any, c: any) => a + c.price * c.qty,
-                      0
-                    ).toLocaleString()}
+                    {cartItems
+                      .reduce((a: any, c: any) => a + c.price * c.qty, 0)
+                      .toLocaleString()}
                   </div>
                 </div>
                 <div className="w-full flex">
@@ -141,6 +142,7 @@ function CartScreen() {
 
             {/* MOBILE TOTAL CONTAINER */}
             <div className="md:hidden">
+              <hr />
               <div className="my-2">
                 <div className="flex flex-row items-center justify-between">
                   <div className="">
@@ -149,10 +151,9 @@ function CartScreen() {
                   </div>
                   <div className="">
                     £
-                    {cartItems.reduce(
-                      (a: any, c: any) => a + c.price * c.qty,
-                      0
-                    ).toLocaleString()}
+                    {cartItems
+                      .reduce((a: any, c: any) => a + c.price * c.qty, 0)
+                      .toLocaleString()}
                   </div>
                 </div>
                 <div className="flex flex-row items-center justify-between">
@@ -166,10 +167,12 @@ function CartScreen() {
                 <div className="">Total</div>
                 <div className="">
                   £
-                  {cartItems.reduce((a: any, c: any) => a + c.price * c.qty, 0).toLocaleString()}
+                  {cartItems
+                    .reduce((a: any, c: any) => a + c.price * c.qty, 0)
+                    .toLocaleString()}
                 </div>
               </div>
-              <div className="w-full flex justify-end">
+              <div className="w-full flex justify-end mb-1">
                 <button
                   className="primary-button my-2 w-full md:w-2/6 text-xl"
                   onClick={() => router.push("/login" && "/shipping")}
