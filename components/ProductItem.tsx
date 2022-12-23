@@ -18,9 +18,9 @@ export default function ProductItem({ product }: ProductItemProps) {
         />
       </Link>
 
-      <div className="flex flex-col items-center justify-center p-5 text-white">
+      <div className="flex flex-col items-center justify-center p-5 text-black">
         <Link href={"/product/" + product.slug} className="">
-          <h2 className="text-lg">{product.name}</h2>
+          <h2 className="text-lg text-black">{product.name}</h2>
         </Link>
         <p className="mb-2">{product.brand}</p>
         <p className="">£{product.price}</p>

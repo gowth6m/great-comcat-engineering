@@ -103,7 +103,7 @@ export default function NavBar() {
           href="/cart"
         >
           {cartItemsCount > 0 && (
-            <span className="bg-red-500 rounded-full text-white px-2">
+            <span className="bg-[var(--blue)] rounded-full text-white px-2">
               {cartItemsCount}
             </span>
           )}
