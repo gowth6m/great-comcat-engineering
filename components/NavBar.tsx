@@ -46,9 +46,8 @@ export default function NavBar() {
 
   return (
     <nav className="fixed w-full flex h-12  mx-0 justify-between items-center bg-[var(--black)]">
-      <Link
-        href="#"
-        className="text-lg font-bold px-4"
+      <div
+        className="text-lg font-bold px-4 text-white"
         onClick={() => {
           setMenuOpened(!menuOpened);
         }}
@@ -58,7 +57,7 @@ export default function NavBar() {
         ) : (
           <FontAwesomeIcon icon={faXmark} className="z-50 mx-2 w-7 md:hidden" />
         )}
-      </Link>
+      </div>
 
       <Link href="/" className="text-lg font-bold text-white flex-1">
         GCE
