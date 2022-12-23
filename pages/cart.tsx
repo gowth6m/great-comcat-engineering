@@ -5,6 +5,7 @@ import Layout from "../components/Layout";
 import { CartProductDataType, Store } from "../utils/Store";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import axios from "axios";
 
 function CartScreen() {
   const router = useRouter();
@@ -18,9 +19,15 @@ function CartScreen() {
     dispatch({ type: "CART_REMOVE_ITEM", payload: item });
   };
 
-  const updateCartHandler = (item: CartProductDataType, qty: any) => {
+  const updateCartHandler = async (item: CartProductDataType, qty: any) => {
     const quantity = Number(qty);
+    const { data } = await axios.get(`/api/products/${item._id}`);
+    if (data.countInStock < quantity) {
+      window.alert("Sorry. Product is out of stock");
+      return;
+    }
     dispatch({ type: "CART_ADD_ITEM", payload: { ...item, qty: quantity } });
+    window.alert("Product updated in cart");
   };
 
   return (

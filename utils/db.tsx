@@ -36,5 +36,12 @@ async function disconnect() {
   }
 }
 
-const exporting = { connect, disconnect };
+function convertDocToObj(doc: any) {
+  doc._id = doc._id.toString();
+  doc.createdAt = doc.createdAt.toString();
+  doc.updatedAt = doc.updatedAt.toString();
+  return doc;
+}
+
+const exporting = { connect, disconnect, convertDocToObj };
 export default exporting;

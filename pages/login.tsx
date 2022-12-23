@@ -34,7 +34,7 @@ export default function LoginScreen() {
       console.log(result);
     } catch (error) {
       console.log(getError(error));
-      alert(getError(error));
+      window.alert(getError(error));
     }
   };
 

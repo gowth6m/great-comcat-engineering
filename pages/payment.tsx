@@ -19,7 +19,7 @@ export default function PaymentScreen() {
     e.preventDefault();
     if (!selectedPaymentMethod) {
       console.log("Please select a payment method");
-      return alert("Please select a payment method");
+      return window.alert("Please select a payment method");
     }
     dispatch({ type: "SAVE_PAYMENT_METHOD", payload: selectedPaymentMethod });
     Cookies.set(

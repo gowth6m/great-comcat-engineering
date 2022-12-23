@@ -24,6 +24,7 @@ interface IState {
 }
 
 export type CartProductDataType = {
+  _id: string;
   name: string;
   slug: string;
   category: string;

@@ -3,11 +3,15 @@ import Link from "next/link";
 import React from "react";
 import { ProductDataType } from "../utils/data";
 
-type ProductItemProps = {
+export type ProductItemProps = {
   product: ProductDataType;
+  addToCartHandler: (product: ProductDataType) => void;
 };
 
-export default function ProductItem({ product }: ProductItemProps) {
+export default function ProductItem({
+  product,
+  addToCartHandler,
+}: ProductItemProps) {
   return (
     <div className="card">
       <Link href={"/product/" + product.slug}>
@@ -24,7 +28,13 @@ export default function ProductItem({ product }: ProductItemProps) {
         </Link>
         <p className="mb-2">{product.brand}</p>
         <p className="">£{product.price}</p>
-        <button className="primary-button" type="button">
+        <button
+          className="primary-button"
+          type="button"
+          onClick={() => {
+            addToCartHandler(product);
+          }}
+        >
           Add to cart
         </button>
       </div>
