@@ -1,9 +1,7 @@
 import axios from "axios";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useReducer } from "react";
 import Layout from "../../components/Layout";
-import Order from "../../models/Order";
 import { Auth } from "../../utils/Auth";
 import { getError } from "../../utils/error";
 
@@ -96,8 +94,8 @@ function OrderScreen() {
                 {/* Order Items */}
                 <div className="flex flex-col py-4">
                   <div className="flex flex-col m-1">
-                    {orderItems.map((item: any) => (
-                      <div key={item.slug}>
+                    {orderItems.map((item: any, index:number) => (
+                      <div key={index}>
                         {item.name} ({item.qty}) £{item.price * item.qty}
                       </div>
                     ))}
