@@ -5,8 +5,9 @@ import { useForm } from "react-hook-form";
 import { signIn, useSession } from "next-auth/react";
 import { getError } from "../utils/error";
 import router, { useRouter } from "next/router";
+import axios from "axios";
 
-export default function LoginScreen() {
+export default function RegisterScreen() {
   const router = useRouter();
   const { data: session } = useSession();
   const { redirect } = router.query;
@@ -21,11 +22,18 @@ export default function LoginScreen() {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm();
 
-  const submitHandler = async ({ email, password }: any) => {
+  const submitHandler = async ({ name, email, password }: any) => {
     try {
+      await axios.post("/api/auth/signup", {
+        name,
+        email,
+        password,
+      });
+
       const result = await signIn("credentials", {
         redirect: false,
         email: email,
@@ -34,19 +42,35 @@ export default function LoginScreen() {
       console.log(result);
     } catch (error) {
       console.log(getError(error));
-      console.log(error);
       window.alert(getError(error));
     }
   };
 
   return (
-    <Layout title="Login">
+    <Layout title="Register">
       <form
         action=""
         className="mx-auto max-w-screen-md"
         onSubmit={handleSubmit(submitHandler)}
       >
         <h1 className="mb-4 text-xl">Login</h1>
+        <div className="mb-4">
+          <label htmlFor="name">Name</label>
+          <input
+            type="name"
+            {...register("name", {
+              required: "Please enter name",
+            })}
+            className="w-full"
+            id="name"
+            autoFocus
+          />
+          {errors.name && (
+            <div className="text-red-500">
+              {errors.name.message?.toString()}
+            </div>
+          )}
+        </div>
         <div className="mb-4">
           <label htmlFor="email">Email</label>
           <input
@@ -60,7 +84,6 @@ export default function LoginScreen() {
             })}
             className="w-full"
             id="email"
-            autoFocus
           />
           {errors.email && (
             <span className="text-red-500">
@@ -81,7 +104,6 @@ export default function LoginScreen() {
             })}
             className="w-full"
             id="password"
-            autoFocus
           />
           {errors.password && (
             <span className="text-red-500">
@@ -90,17 +112,40 @@ export default function LoginScreen() {
           )}
         </div>
         <div className="mb-4">
+          <label htmlFor="confirmPassword">Confirm Password</label>
+          <input
+            className="w-full"
+            type="password"
+            id="confirmPassword"
+            {...register("confirmPassword", {
+              required: "Please enter confirm password",
+              validate: (value) => value === getValues("password"),
+              minLength: {
+                value: 6,
+                message: "confirm password is more than 5 chars",
+              },
+            })}
+          />
+          {errors.confirmPassword && (
+            <div className="text-red-500 ">
+              {errors.confirmPassword.message?.toString()}
+            </div>
+          )}
+          {errors.confirmPassword &&
+            errors.confirmPassword.type === "validate" && (
+              <div className="text-red-500 ">Password do not match</div>
+            )}
+        </div>
+
+        <div className="mb-4">
           <button onClick={() => {}} className="primary-button">
-            Login
+            Register
           </button>
         </div>
         <div className="mb-4">
-          Don&apos;t have an account?{" "}
-          <Link
-            className="text-[var(--blue)] hover:text-black"
-            href={`/register?redirect=${redirect || "/"}`}
-          >
-            Register
+          Have an account?{" "}
+          <Link className="text-[var(--blue)] hover:text-black" href="/login">
+            Login
           </Link>
         </div>
       </form>

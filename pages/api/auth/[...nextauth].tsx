@@ -33,18 +33,13 @@ const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  pages: {
-    signIn: "/login",
-    error: "/auth/error",
-    signOut: "/auth/signout",
-  },
 
   callbacks: {
     async jwt({ token, user }: any) {
       if (user?._id) token._id = user._id;
       return token;
     },
-    async session({ session, token,  }: any) {
+    async session({ session, token }: any) {
       if (token?._id) session.user._id = token._id;
       return session;
     },

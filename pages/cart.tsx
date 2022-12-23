@@ -182,7 +182,7 @@ function CartScreen() {
               <div className="w-full flex justify-end mb-1">
                 <button
                   className="primary-button my-2 w-full md:w-2/6 text-xl"
-                  onClick={() => router.push("/login" && "/shipping")}
+                  onClick={() => router.push('login?redirect=/shipping')}
                 >
                   Check Out
                 </button>
