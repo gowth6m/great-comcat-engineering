@@ -20,6 +20,7 @@ export default function NavBar() {
   const { state, dispatch } = useContext(Store);
   const [cartItemsCount, setCartItemsCount] = useState(0);
   const [menuOpened, setMenuOpened] = useState(false);
+  const [profileOpened, setProfileOpened] = useState(false);
   const { width } = useWindowDimensions();
 
   useEffect(() => {
@@ -40,6 +41,13 @@ export default function NavBar() {
     transform: {
       scaleY: [0, 1.2, 1],
       scaleX: [1, 1.2, 1],
+      transition: { duration: 0.5 },
+    },
+  };
+
+  const variantsProfile = {
+    transform: {
+      scaleY: [0, 1.2, 1],
       transition: { duration: 0.5 },
     },
   };
@@ -108,26 +116,36 @@ export default function NavBar() {
         ) : session?.user ? (
           // <Link className="p-6" href="/">{session.user.name!.split(" ")[0]}</Link>
           <Menu as="div" className="relative inline-block">
-            <Menu.Button className=" py-4 text-white">
-              {/* {session.user.name?.split(" ")[0]} */}
+            <Menu.Button
+              className=" py-4 text-white"
+              onClick={() => {
+                setProfileOpened(!profileOpened);
+              }}
+            >
               <FontAwesomeIcon icon={faUser} className="w-7" />
             </Menu.Button>
-            <Menu.Items className="absolute right-0 w-56 origin-top-right bg-white shadow-lg">
-              <DropdownLink className="dropdown-link" href="/profile">
-                Profile
-              </DropdownLink>
-              <DropdownLink className="dropdown-link" href="/order-history">
-                Order History
-              </DropdownLink>
-              <DropdownLink
-                className="dropdown-link"
-                href="#"
-                onClick={() => {
-                  logoutHandler();
-                }}
+            <Menu.Items className="absolute right-0 w-56 origin-top-right">
+              <motion.div
+                className="origin-top bg-white shadow-lg"
+                variants={variantsProfile}
+                animate={profileOpened ? "transform" : "stop"}
               >
-                Logout
-              </DropdownLink>
+                <DropdownLink className="dropdown-link" href="/profile">
+                  Profile
+                </DropdownLink>
+                <DropdownLink className="dropdown-link" href="/order-history">
+                  Order History
+                </DropdownLink>
+                <DropdownLink
+                  className="dropdown-link"
+                  href="#"
+                  onClick={() => {
+                    logoutHandler();
+                  }}
+                >
+                  Logout
+                </DropdownLink>
+              </motion.div>
             </Menu.Items>
           </Menu>
         ) : (
