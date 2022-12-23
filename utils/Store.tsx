@@ -93,6 +93,15 @@ function reducer(state: IState, action: IAction) {
         },
       };
 
+    case "CART_CLEAR_ITEMS":
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          cartItems: [],
+        },
+      };
+
     default:
       return state;
   }

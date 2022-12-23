@@ -9,8 +9,8 @@ export default function CheckoutWizard({ activeStep = 0 }) {
             key={step}
             className={
               index <= activeStep
-                ? "flex-1 border-b-2 text-center border-[#7D4E57]"
-                : "flex-1 border-b-2 text-center border-gray-300"
+                ? "flex-1 border-b-4 text-center border-[var(--blue)] font-semibold"
+                : "flex-1 border-b-4 text-center border-gray-300 "
             }
           >
             {step}
