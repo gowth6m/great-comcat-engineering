@@ -122,7 +122,7 @@ export default function NavBar() {
                 setProfileOpened(!profileOpened);
               }}
             >
-              <FontAwesomeIcon icon={faUser} className="w-7" />
+              <FontAwesomeIcon icon={faUser} className="ml-2 w-5" />
             </Menu.Button>
             <Menu.Items className="absolute right-0 w-56 origin-top-right">
               <motion.div
