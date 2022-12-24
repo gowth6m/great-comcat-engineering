@@ -112,7 +112,7 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-  @apply text-[var(--white)] hover:text-[var(--white)] 
+  @apply text-[var(--white)] hover:text-[var(--blue)] 
 }
 
 @media (prefers-color-scheme: dark) {

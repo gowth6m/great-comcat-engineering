@@ -9,7 +9,7 @@ import { Store } from "../utils/Store";
 export default function PaymentScreen() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
 
-  const { state, dispatch } = useContext(Store);
+  const { state, dispatchStore } = useContext(Store);
   const { cart } = state;
   const { shippingAddress, paymentMethod } = cart;
 
@@ -21,7 +21,7 @@ export default function PaymentScreen() {
       console.log("Please select a payment method");
       return window.alert("Please select a payment method");
     }
-    dispatch({ type: "SAVE_PAYMENT_METHOD", payload: selectedPaymentMethod });
+    dispatchStore({ type: "SAVE_PAYMENT_METHOD", payload: selectedPaymentMethod });
     Cookies.set(
       "cart",
       JSON.stringify({

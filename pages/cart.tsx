@@ -9,14 +9,14 @@ import axios from "axios";
 
 function CartScreen() {
   const router = useRouter();
-  const { state, dispatch } = useContext(Store);
+  const { state, dispatchStore } = useContext(Store);
 
   const {
     cart: { cartItems },
   } = state;
 
   const removeFromCartHandler = (item: CartProductDataType) => {
-    dispatch({ type: "CART_REMOVE_ITEM", payload: item });
+    dispatchStore({ type: "CART_REMOVE_ITEM", payload: item });
   };
 
   const updateCartHandler = async (item: CartProductDataType, qty: any) => {
@@ -26,7 +26,7 @@ function CartScreen() {
       window.alert("Sorry. Product is out of stock");
       return;
     }
-    dispatch({ type: "CART_ADD_ITEM", payload: { ...item, qty: quantity } });
+    dispatchStore({ type: "CART_ADD_ITEM", payload: { ...item, qty: quantity } });
     window.alert("Product updated in cart");
   };
 

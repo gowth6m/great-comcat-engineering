@@ -15,7 +15,7 @@ export default function ShippingScreen() {
     setValue,
   } = useForm();
 
-  const { state, dispatch } = useContext(Store);
+  const { state, dispatchStore } = useContext(Store);
   const { cart } = state;
   const { shippingAddress } = cart;
 
@@ -36,7 +36,7 @@ export default function ShippingScreen() {
   }: any) => {
     console.log(fullName, address, city, postcode, country);
 
-    dispatch({
+    dispatchStore({
       type: "SAVE_SHIPPING_ADDRESS",
       payload: { fullName, address, city, postcode, country },
     });

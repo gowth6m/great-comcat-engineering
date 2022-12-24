@@ -17,7 +17,7 @@ import DropdownLink from "./DropdownLink";
 
 export default function NavBar() {
   const { status, data: session } = useSession();
-  const { state, dispatch } = useContext(Store);
+  const { state, dispatchStore } = useContext(Store);
   const [cartItemsCount, setCartItemsCount] = useState(0);
   const [menuOpened, setMenuOpened] = useState(false);
   const [profileOpened, setProfileOpened] = useState(false);
@@ -31,7 +31,7 @@ export default function NavBar() {
 
   const logoutHandler = async () => {
     Cookies.remove("cart");
-    dispatch({ type: "CART_RESET" });
+    dispatchStore({ type: "CART_RESET" });
     signOut({
       callbackUrl: "/login",
     });

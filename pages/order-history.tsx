@@ -76,8 +76,12 @@ function OrderHistoryScreen() {
                         : "not delivered"}
                     </td>
                     <td className=" p-5 ">
-                      <Link href={`/order/${order._id}`} passHref>
-                        <a>Details</a>
+                      <Link
+                        className="primary-button"
+                        href={`/order/${order._id}`}
+                        passHref
+                      >
+                        Details
                       </Link>
                     </td>
                   </tr>

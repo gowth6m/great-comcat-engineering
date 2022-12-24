@@ -10,7 +10,7 @@ import axios from "axios";
 
 export default function ProductScreen(props: any) {
   const { product } = props;
-  const { state, dispatch } = useContext(Store);
+  const { state, dispatchStore } = useContext(Store);
   
   if (!product) {
     return <Layout title="Product not found">Product not found</Layout>;
@@ -29,7 +29,7 @@ export default function ProductScreen(props: any) {
       return;
     }
 
-    dispatch({ type: "CART_ADD_ITEM", payload: { ...product, qty } });
+    dispatchStore({ type: "CART_ADD_ITEM", payload: { ...product, qty } });
     router.push("/cart");
   };
 

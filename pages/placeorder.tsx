@@ -11,7 +11,7 @@ import { getError } from "../utils/error";
 import { Store } from "../utils/Store";
 
 export default function PlaceOrderScreen() {
-  const { state, dispatch } = useContext(Store);
+  const { state, dispatchStore } = useContext(Store);
   const { cart } = state;
   const { shippingAddress, paymentMethod, cartItems } = cart;
   const [loading, setLoading] = useState(false);
@@ -45,7 +45,7 @@ export default function PlaceOrderScreen() {
         totalPrice,
       });
       setLoading(false);
-      dispatch({ type: "CART_CLEAR_ITEMS" });
+      dispatchStore({ type: "CART_CLEAR_ITEMS" });
       Cookies.set("cart", JSON.stringify({ ...cart, cartItems: [] }));
       router.push(`/order/${data._id}`);
     } catch (error) {

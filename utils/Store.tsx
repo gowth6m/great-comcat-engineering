@@ -108,7 +108,7 @@ function reducer(state: IState, action: IAction) {
 }
 
 export function StoreProvider(props: any) {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const value = { state, dispatch };
+  const [state, dispatchStore] = useReducer(reducer, initialState);
+  const value = { state, dispatchStore };
   return <Store.Provider value={value}>{props.children}</Store.Provider>;
 }
