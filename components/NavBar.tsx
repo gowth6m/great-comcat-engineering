@@ -1,19 +1,15 @@
-import {
-  faBars,
-  faBasketShopping,
-  faUser,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Menu } from "@headlessui/react";
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { Router, useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { Store } from "../utils/Store";
 import useWindowDimensions from "../utils/window";
 import DropdownLink from "./DropdownLink";
+import { IconCart, IconMenu, IconSearch, IconUser } from "./CustomIcons";
+import SearchBar from "./SearchBar";
 
 export default function NavBar() {
   const { status, data: session } = useSession();
@@ -22,6 +18,8 @@ export default function NavBar() {
   const [menuOpened, setMenuOpened] = useState(false);
   const [profileOpened, setProfileOpened] = useState(false);
   const { width } = useWindowDimensions();
+  const router = useRouter();
+  const [showSearch, setShowSearch] = useState(false);
 
   useEffect(() => {
     setCartItemsCount(
@@ -54,23 +52,26 @@ export default function NavBar() {
 
   return (
     <nav className="fixed w-full flex h-12  mx-0 justify-between items-center bg-[var(--black)]">
+      {showSearch ? <SearchBar /> : null}
+
       <div
-        className="text-lg font-bold px-4 text-white cursor-pointer"
+        className="text-lg font-semibold text-white cursor-pointer mx-2 ml-3"
         onClick={() => {
           setMenuOpened(!menuOpened);
         }}
       >
         {!menuOpened ? (
-          <FontAwesomeIcon icon={faBars} className="z-50 mx-2 w-7 md:hidden" />
+          <IconMenu open={false} fill={"white"} className="z-50 md:hidden" />
         ) : (
-          <FontAwesomeIcon icon={faXmark} className="z-50 mx-2 w-7 md:hidden" />
+          <IconMenu open={true} fill={"white"} className="z-50 md:hidden" />
         )}
       </div>
 
-      <Link href="/" className="text-lg font-bold text-white flex-1">
+      <Link href="/" className="text-lg font-semibold text-white flex-1">
         GCE
       </Link>
 
+      {/* NAV MENU ITEMS */}
       <motion.div
         className={
           menuOpened
@@ -97,33 +98,41 @@ export default function NavBar() {
         </Link>
       </motion.div>
 
-      <div className="flex flex-row justify-end items-center flex-1 pr-6">
+      <div className="flex flex-row justify-end items-center flex-1">
         <Link
-          className="flex flex-row justify-center items-center"
+          className="flex flex-row justify-center items-center mx-1"
           href="/cart"
         >
           {cartItemsCount > 0 && (
-            <span className="bg-[var(--blue)] rounded-full text-white px-2">
+            <span className="bg-[var(--blue)] rounded-full text-white px-2 mx-2">
               {cartItemsCount}
             </span>
           )}
-          <FontAwesomeIcon icon={faBasketShopping} className="ml-2 w-7" />
+          <IconCart open={false} fill={"white"} />
         </Link>
 
-        {/* PROFILE BUTTON OR SIGN IN BUTTON */}
-        {status === "loading" ? (
-          "Loading"
-        ) : session?.user ? (
-          // <Link className="p-6" href="/">{session.user.name!.split(" ")[0]}</Link>
-          <Menu as="div" className="relative inline-block">
-            <Menu.Button
-              className=" py-4 text-white"
-              onClick={() => {
-                setProfileOpened(!profileOpened);
-              }}
-            >
-              <FontAwesomeIcon icon={faUser} className="ml-2 w-5" />
-            </Menu.Button>
+        <div
+          className="flex flex-row justify-center items-center mx-1 cursor-pointer"
+          onClick={() => {
+            setShowSearch(!showSearch);
+          }}
+        >
+          <IconSearch open={true} fill={"white"} />
+        </div>
+
+        <Menu as="div" className="relative inline-block">
+          <Menu.Button
+            className=" py-4 text-white mx-1 mr-4"
+            onClick={() => {
+              session?.user
+                ? setProfileOpened(!profileOpened)
+                : router.push("/login");
+            }}
+          >
+            <IconUser fill={"white"} />
+          </Menu.Button>
+
+          {session?.user ? (
             <Menu.Items className="absolute right-0 w-56 origin-top-right">
               <motion.div
                 className="origin-top bg-white shadow-lg"
@@ -147,12 +156,10 @@ export default function NavBar() {
                 </DropdownLink>
               </motion.div>
             </Menu.Items>
-          </Menu>
-        ) : (
-          <Link className="p-6" href="/login">
-            Login
-          </Link>
-        )}
+          ) : (
+            <></>
+          )}
+        </Menu>
       </div>
     </nav>
   );

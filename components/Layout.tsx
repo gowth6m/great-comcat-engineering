@@ -1,7 +1,8 @@
 import Head from "next/head";
 import React from "react";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import NavBar from "./NavBar";
+import SearchBar from "./SearchBar";
 
 type LayoutProps = {
   title?: string;
@@ -29,7 +30,9 @@ export default function Layout({ title, children }: LayoutProps) {
 
         {/* BODY */}
         <main className="container m-auto mt-4 px-4">
-        <div><Toaster/></div>
+          <div>
+            <Toaster />
+          </div>
           <br />
           <br />
           {children}
