@@ -20,7 +20,7 @@ export default function Home({ products }: any) {
     const fetchProducts = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        // await new Promise((resolve) => setTimeout(resolve, 10000));
+        // await new Promise((resolve) => setTimeout(resolve, 1000));
         const { data } = await axios.get(`/api/products/all`);
         dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (error) {
