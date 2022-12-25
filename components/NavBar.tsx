@@ -55,7 +55,7 @@ export default function NavBar() {
   return (
     <nav className="fixed w-full flex h-12  mx-0 justify-between items-center bg-[var(--black)]">
       <div
-        className="text-lg font-bold px-4 text-white"
+        className="text-lg font-bold px-4 text-white cursor-pointer"
         onClick={() => {
           setMenuOpened(!menuOpened);
         }}
