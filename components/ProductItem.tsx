@@ -20,7 +20,7 @@ export default function ProductItem({
         <img
           src={product.image}
           alt={product.slug}
-          className="w-full rounded shadow object-cover"
+          className="w-full rounded-xl shadow object-cover"
         />
       </Link>
 

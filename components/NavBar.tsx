@@ -51,7 +51,7 @@ export default function NavBar() {
   };
 
   return (
-    <nav className="fixed w-full flex h-12  mx-0 justify-between items-center bg-[var(--black)]">
+    <nav className="z-50 fixed top-0 w-full flex h-12  mx-0 justify-between items-center bg-[var(--black)]">
       {showSearch ? <SearchBar /> : null}
 
       <div
