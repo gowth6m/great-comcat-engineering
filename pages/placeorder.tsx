@@ -1,6 +1,5 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
@@ -9,6 +8,7 @@ import Layout from "../components/Layout";
 import { Auth } from "../utils/Auth";
 import { getError } from "../utils/error";
 import { Store } from "../utils/Store";
+import toast from "react-hot-toast";
 
 export default function PlaceOrderScreen() {
   const { state, dispatchStore } = useContext(Store);
@@ -50,7 +50,7 @@ export default function PlaceOrderScreen() {
       router.push(`/order/${data._id}`);
     } catch (error) {
       setLoading(false);
-      window.alert(getError(error));
+      toast.error(getError(error));
     }
   };
 

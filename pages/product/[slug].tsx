@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import router, { useRouter } from "next/router";
+import router from "next/router";
 import Layout from "../../components/Layout";
 import Link from "next/link";
 import Image from "next/image";
@@ -7,11 +7,13 @@ import { CartProductDataType, Store } from "../../utils/Store";
 import db from "../../utils/db";
 import Product from "../../models/Product";
 import axios from "axios";
+import toast from "react-hot-toast";
+import { customToast } from "../../utils/customToast";
 
 export default function ProductScreen(props: any) {
   const { product } = props;
   const { state, dispatchStore } = useContext(Store);
-  
+
   if (!product) {
     return <Layout title="Product not found">Product not found</Layout>;
   }
@@ -25,7 +27,7 @@ export default function ProductScreen(props: any) {
     const { data } = await axios.get(`/api/products/${product._id}`);
 
     if (qty > data.countInStock) {
-      window.alert("Sorry. Product is out of stock");
+      customToast("Sorry. Product is out of stock");
       return;
     }
 

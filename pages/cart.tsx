@@ -6,6 +6,7 @@ import { CartProductDataType, Store } from "../utils/Store";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import axios from "axios";
+import { customToast } from "../utils/customToast";
 
 function CartScreen() {
   const router = useRouter();
@@ -23,11 +24,14 @@ function CartScreen() {
     const quantity = Number(qty);
     const { data } = await axios.get(`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
-      window.alert("Sorry. Product is out of stock");
+      customToast("Sorry. Product is out of stock")
       return;
     }
-    dispatchStore({ type: "CART_ADD_ITEM", payload: { ...item, qty: quantity } });
-    window.alert("Product updated in cart");
+    dispatchStore({
+      type: "CART_ADD_ITEM",
+      payload: { ...item, qty: quantity },
+    });
+    customToast("Product updated in cart")
   };
 
   return (

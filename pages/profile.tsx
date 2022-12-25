@@ -5,6 +5,7 @@ import { getError } from "../utils/error";
 import axios from "axios";
 import Layout from "../components/Layout";
 import { Auth } from "../utils/Auth";
+import toast from "react-hot-toast";
 
 export default function ProfileScreen() {
   const { data: session }: any = useSession();
@@ -34,12 +35,13 @@ export default function ProfileScreen() {
         email,
         password,
       });
-      window.alert("Profile updated successfully");
+      toast.success("Profile updated successfully");
+
       if (result!.error) {
-        window.alert(result!.error);
+        toast.error(result!.error ?? "Error occurred");
       }
     } catch (err) {
-      window.alert(getError(err));
+      toast.error(getError(err) ?? "Error occurred");
     }
   };
 

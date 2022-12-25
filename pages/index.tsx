@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useContext, useEffect, useReducer, useState } from "react";
 import Layout from "../components/Layout";
-import ProductItem, { ProductItemProps } from "../components/ProductItem";
+import ProductItem from "../components/ProductItem";
 import Product from "../models/Product";
 import db from "../utils/db";
 import { getError } from "../utils/error";
 import { CartProductDataType, Store } from "../utils/Store";
+import { customToast } from "../utils/customToast";
 
 export default function Home({ products }: any) {
   const { state, dispatchStore } = useContext(Store);
@@ -41,7 +42,8 @@ export default function Home({ products }: any) {
     const { data } = await axios.get(`/api/products/${product._id}`);
 
     if (qty > data.countInStock) {
-      window.alert("Sorry. Product is out of stock");
+      customToast("Sorry. Product is out of stock");
+      setAddingItem("");
       return;
     }
     dispatchStore({ type: "CART_ADD_ITEM", payload: { ...product, qty } });

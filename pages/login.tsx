@@ -4,7 +4,7 @@ import Layout from "../components/Layout";
 import { useForm } from "react-hook-form";
 import { signIn, useSession } from "next-auth/react";
 import { getError } from "../utils/error";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import Loading from "../components/Loading";
 import toast from "react-hot-toast";
 

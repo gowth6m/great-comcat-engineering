@@ -5,6 +5,7 @@ import CheckoutWizard from "../components/CheckoutWizard";
 import Layout from "../components/Layout";
 import { Auth } from "../utils/Auth";
 import { Store } from "../utils/Store";
+import toast from "react-hot-toast";
 
 export default function PaymentScreen() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
@@ -18,10 +19,12 @@ export default function PaymentScreen() {
   const submitHandler = (e: any) => {
     e.preventDefault();
     if (!selectedPaymentMethod) {
-      console.log("Please select a payment method");
-      return window.alert("Please select a payment method");
+      toast.error("Please select a payment method");
     }
-    dispatchStore({ type: "SAVE_PAYMENT_METHOD", payload: selectedPaymentMethod });
+    dispatchStore({
+      type: "SAVE_PAYMENT_METHOD",
+      payload: selectedPaymentMethod,
+    });
     Cookies.set(
       "cart",
       JSON.stringify({
@@ -75,9 +78,9 @@ export default function PaymentScreen() {
             <button
               className="primary-button"
               type="button"
-            //   onClick={() => {
-            //     router.push("/placeorder");
-            //   }}
+              //   onClick={() => {
+              //     router.push("/placeorder");
+              //   }}
               onClick={submitHandler}
             >
               Next
