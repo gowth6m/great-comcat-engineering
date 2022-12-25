@@ -1,15 +1,18 @@
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import { useForm } from "react-hook-form";
 import { signIn, useSession } from "next-auth/react";
 import { getError } from "../utils/error";
 import router, { useRouter } from "next/router";
+import Loading from "../components/Loading";
+import toast from "react-hot-toast";
 
 export default function LoginScreen() {
   const router = useRouter();
   const { data: session } = useSession();
   const { redirect } = router.query;
+  const [loggingIn, setLoggingIn] = useState(false);
 
   useEffect(() => {
     if (session?.user) {
@@ -26,21 +29,26 @@ export default function LoginScreen() {
 
   const submitHandler = async ({ email, password }: any) => {
     try {
+      setLoggingIn(true);
+      // await new Promise((resolve) => setTimeout(resolve, 1000));
       const result = await signIn("credentials", {
         redirect: false,
         email: email,
         password: password,
       });
-      console.log(result);
+      setLoggingIn(false);
+
+      if (result?.error) {
+        toast.error(getError(result?.error) ?? "Invalid credentials");
+      }
     } catch (error) {
-      console.log(getError(error));
-      console.log(error);
-      window.alert(getError(error));
+      toast.error(getError(error) ?? "An error occurred");
     }
   };
 
   return (
     <Layout title="Login">
+      {loggingIn ? <Loading /> : <div></div>}
       <form
         action=""
         className="mx-auto max-w-screen-md"

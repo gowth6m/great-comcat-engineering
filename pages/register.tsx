@@ -1,16 +1,19 @@
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import { useForm } from "react-hook-form";
 import { signIn, useSession } from "next-auth/react";
 import { getError } from "../utils/error";
 import router, { useRouter } from "next/router";
 import axios from "axios";
+import toast from "react-hot-toast";
+import Loading from "../components/Loading";
 
 export default function RegisterScreen() {
   const router = useRouter();
-  const { data: session }:any = useSession();
+  const { data: session }: any = useSession();
   const { redirect } = router.query;
+  const [registering, setRegistering] = useState(false);
 
   useEffect(() => {
     if (session?.user) {
@@ -28,26 +31,32 @@ export default function RegisterScreen() {
 
   const submitHandler = async ({ name, email, password }: any) => {
     try {
+      setRegistering(true);
+      // await new Promise((resolve) => setTimeout(resolve, 1000));
       await axios.post("/api/auth/signup", {
         name,
         email,
         password,
       });
-
       const result = await signIn("credentials", {
         redirect: false,
         email: email,
         password: password,
       });
-      console.log(result);
+      setRegistering(false);
+
+      if (result?.error) {
+        toast.error(getError(result?.error) ?? "An error occurred");
+      }
     } catch (error) {
-      console.log(getError(error));
-      window.alert(getError(error));
+      toast.error(getError(error) ?? "An error occurred");
     }
+    setRegistering(false);
   };
 
   return (
     <Layout title="Register">
+      {registering ? <Loading /> : <div></div>}
       <form
         action=""
         className="mx-auto max-w-screen-md"
