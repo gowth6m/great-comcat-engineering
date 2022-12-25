@@ -9,7 +9,7 @@ import axios from "axios";
 
 export default function RegisterScreen() {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session }:any = useSession();
   const { redirect } = router.query;
 
   useEffect(() => {
