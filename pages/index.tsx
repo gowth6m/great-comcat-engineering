@@ -21,7 +21,7 @@ export default function Home({ products }: any) {
     const fetchProducts = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        // await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 10000));
         const { data } = await axios.get(`/api/products/all`);
         dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (error) {
@@ -52,10 +52,10 @@ export default function Home({ products }: any) {
   return (
     <Layout title="Home">
       {loading ? (
-        <div className="w-full h-full flex justify-center align-middle text-center">
-          <div className="w-full h-full">
+        <div className="w-full h-[100dvh] flex justify-center align-middle text-center">
+          <div className="w-full h-full flex justify-center align-middle">
             <svg
-              className="mt-[50%] inline mr-2 w-2/6 h-2/6 text-gray-200 animate-spin dark:text-[var(--black)] fill-[var(--blue)]"
+              className="inline w-2/6 h-auto md:w-1/6 text-gray-200 animate-spin dark:text-[var(--black)] fill-[var(--blue)]"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
