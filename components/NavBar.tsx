@@ -1,6 +1,6 @@
 import {
   faBars,
-  faShoppingBasket,
+  faBasketShopping,
   faUser,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
@@ -107,7 +107,7 @@ export default function NavBar() {
               {cartItemsCount}
             </span>
           )}
-          <FontAwesomeIcon icon={faShoppingBasket} className="ml-2 w-7" />
+          <FontAwesomeIcon icon={faBasketShopping} className="ml-2 w-7" />
         </Link>
 
         {/* PROFILE BUTTON OR SIGN IN BUTTON */}

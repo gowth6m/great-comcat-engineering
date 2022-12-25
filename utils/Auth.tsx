@@ -7,7 +7,6 @@ export function Auth({ children }: any) {
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
-      // router.push("/unauthorized?message=login required");
       router.push("/login");
     },
   });
