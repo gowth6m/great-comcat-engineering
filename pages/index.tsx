@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useEffect, useReducer } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
 import Layout from "../components/Layout";
 import ProductItem, { ProductItemProps } from "../components/ProductItem";
 import Product from "../models/Product";
@@ -15,6 +15,7 @@ export default function Home({ products }: any) {
     prod: [],
     error: "",
   });
+  const [addingItem, setAddingItem] = useState("");
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -32,6 +33,7 @@ export default function Home({ products }: any) {
 
   // adding items to cart
   const addToCartHandler = async (product: any) => {
+    setAddingItem(product.slug);
     const existItem = cart.cartItems.find(
       (x: CartProductDataType) => x.slug === product.slug
     );
@@ -43,6 +45,8 @@ export default function Home({ products }: any) {
       return;
     }
     dispatchStore({ type: "CART_ADD_ITEM", payload: { ...product, qty } });
+    // await new Promise((resolve) => setTimeout(resolve, 10000));
+    setAddingItem("");
   };
 
   return (
@@ -76,6 +80,7 @@ export default function Home({ products }: any) {
                   key={product.slug}
                   product={product}
                   addToCartHandler={addToCartHandler}
+                  currentAddingItem={addingItem}
                 />
               );
             })}
