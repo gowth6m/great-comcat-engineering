@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import axios from "axios";
 import { useContext, useEffect, useReducer, useState } from "react";
 import Layout from "../components/Layout";
@@ -7,9 +8,9 @@ import db from "../utils/db";
 import { getError } from "../utils/error";
 import { CartProductDataType, Store } from "../utils/Store";
 import { customToast } from "../utils/customToast";
-import Carousel from "nuka-carousel";
-import Image from "next/image";
 import useWindowDimensions from "../utils/window";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import "@splidejs/react-splide/css";
 
 export default function Home({ products }: any) {
   const { state, dispatchStore } = useContext(Store);
@@ -20,7 +21,13 @@ export default function Home({ products }: any) {
     error: "",
   });
   const [addingItem, setAddingItem] = useState("");
-  const { width } = useWindowDimensions();
+  const imgLinks = [
+    "https://picsum.photos/2200/800?random=1",
+    "https://picsum.photos/2200/800?random=2",
+    "https://picsum.photos/2200/800?random=3",
+    "https://picsum.photos/2200/800?random=4",
+    "https://picsum.photos/2200/800?random=5",
+  ];
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -57,35 +64,27 @@ export default function Home({ products }: any) {
 
   return (
     <>
-      <div className="flex flex-col z-0 mb-4 sticky top-12">
-        <Carousel
-          wrapAround={true}
-          slidesToShow={1}
-          adaptiveHeight={false}
-          className={"z-0 intro-gallary selection:unset-img"}
+      <div className="flex flex-col z-0 sticky top-12">
+        <Splide
+          aria-label="My Favorite Images"
+          options={{
+            rewind: true,
+            autoplay: true,
+            type: "loop",
+            arrows: false,
+            lazyLoad: "nearby",
+          }}
         >
-          <Image
-            src={"https://picsum.photos/2800/800?random=10"}
-            alt={"gallery"}
-            className="custom-img"
-            layout="fill"
-          />
-          <Image
-            src={"https://picsum.photos/2800/800?random=11"}
-            alt={"gallery"}
-            layout="fill"
-          />
-          <Image
-            src={"https://picsum.photos/2800/800?random=12"}
-            alt={"gallery"}
-            layout="fill"
-          />
-          <Image
-            src={"https://picsum.photos/2800/800?random=13"}
-            alt={"gallery"}
-            layout="fill"
-          />
-        </Carousel>
+          {imgLinks.map((link, index) => (
+            <SplideSlide key={index}>
+              <img
+                src={link}
+                alt="ImageGalleryImg"
+                className="w-full h-[50vh] object-cover"
+              />
+            </SplideSlide>
+          ))}
+        </Splide>
       </div>
       <Layout title="Home">
         {loading ? (

@@ -158,17 +158,3 @@ select {
 .navbar {
   @apply flex justify-start items-center flex-auto fixed w-full flex-col z-20 h-auto bg-[var(--black)] top-12;
 }
-
-.custom-img {
-  object-fit: cover !important;
-  width: 100% !important;
-  position: relative !important;
-  height: 60vh !important;
-}
-
-.unset-img {
-  width: 100%;
-}
-.unset-img > div {
-  position: unset !important;
-}
