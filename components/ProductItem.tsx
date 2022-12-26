@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import React from "react";
 import { ProductDataType } from "../utils/data";
@@ -15,7 +16,17 @@ export default function ProductItem({
   currentAddingItem,
 }: ProductItemProps) {
   return (
-    <div className="card">
+    <motion.div
+      className="card"
+      transition={{
+        duration: 1,
+        delay: 0,
+      }}
+      viewport={{ once: true }}
+      initial="offscreen"
+      whileInView="onscreen"
+      variants={itemVariants}
+    >
       <Link href={"/product/" + product.slug}>
         <img
           src={product.image}
@@ -62,6 +73,20 @@ export default function ProductItem({
           )}
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }
+
+const itemVariants: Variants = {
+  offscreen: {
+    scale: 0,
+  },
+  onscreen: {
+    scale: 1,
+    transition: {
+      type: "spring",
+      bounce: 0.5,
+      duration: 1,
+    },
+  },
+};
