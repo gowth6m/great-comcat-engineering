@@ -16,10 +16,10 @@ export default function Layout({ title, children }: LayoutProps) {
         <title>{title ? title + " - GCE" : "Great Comcat Engineering"}</title>
         <meta
           name="description"
-          content="Website of Great Comcat Engineering"
+          content="Website of Great Comcat Engineering LTD"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo/logo.svg" />
       </Head>
 
       <div className="flex min-h-screen flex-col justify-between ">

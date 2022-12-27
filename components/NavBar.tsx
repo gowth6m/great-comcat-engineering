@@ -10,6 +10,7 @@ import useWindowDimensions from "../utils/window";
 import DropdownLink from "./DropdownLink";
 import { IconCart, IconMenu, IconSearch, IconUser } from "./CustomIcons";
 import SearchBar from "./SearchBar";
+import IconLogo from "./IconLogo";
 
 export default function NavBar() {
   const { status, data: session } = useSession();
@@ -67,8 +68,8 @@ export default function NavBar() {
         )}
       </div>
 
-      <Link href="/" className="text-lg font-semibold text-white flex-1">
-        GCE
+      <Link href="/" className="text-lg font-semibold text-white flex-1 mx-0">
+        <IconLogo className="h-12" />
       </Link>
 
       {/* NAV MENU ITEMS */}

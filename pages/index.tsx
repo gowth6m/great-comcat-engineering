@@ -8,8 +8,8 @@ import db from "../utils/db";
 import { getError } from "../utils/error";
 import { CartProductDataType, Store } from "../utils/Store";
 import { customToast } from "../utils/customToast";
-import useWindowDimensions from "../utils/window";
-import { Splide, SplideSlide } from "@splidejs/react-splide";
+// import useWindowDimensions from "../utils/window";
+// import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 
 export default function Home({ products }: any) {
@@ -64,7 +64,7 @@ export default function Home({ products }: any) {
 
   return (
     <>
-      <div className="flex flex-col z-0 sticky top-12">
+      {/* <div className="flex flex-col z-0 sticky top-12">
         <Splide
           aria-label="My Favorite Images"
           options={{
@@ -85,7 +85,7 @@ export default function Home({ products }: any) {
             </SplideSlide>
           ))}
         </Splide>
-      </div>
+      </div> */}
       <Layout title="Home">
         {loading ? (
           <div className="w-full h-[100dvh] flex justify-center align-middle text-center">
