@@ -68,7 +68,10 @@ export default function NavBar() {
         )}
       </div>
 
-      <Link href="/" className="text-lg font-semibold text-white flex-1 mx-0 flex flex-row">
+      <Link
+        href="/"
+        className="text-lg font-semibold text-white flex-1 mx-0 flex flex-row"
+      >
         <IconLogo className="h-12" />
       </Link>
 

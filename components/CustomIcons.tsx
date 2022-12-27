@@ -7,8 +7,8 @@ export function IconMenu(
   if (open) {
     return (
       <svg
-        width={width ?? "16"}
-        height={height ?? "14"}
+        width={width ?? "26"}
+        height={height ?? "24"}
         viewBox="0 0 14 14"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -24,8 +24,8 @@ export function IconMenu(
 
   return (
     <svg
-      width={width ?? "16"}
-      height={height ?? "12"}
+      width={width ?? "26"}
+      height={height ?? "22"}
       viewBox="0 0 16 12"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -42,8 +42,8 @@ export function IconMenu(
 export function IconCart({ fill, width, height }: any, props: any) {
   return (
     <svg
-      width={width ?? "20"}
-      height={height ?? "20"}
+      width={width ?? "24"}
+      height={height ?? "24"}
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -68,8 +68,8 @@ export function IconCart({ fill, width, height }: any, props: any) {
 export function IconSearch({ fill, width, height }: any, props: any) {
   return (
     <svg
-      width={width ?? "20"}
-      height={height ?? "20"}
+      width={width ?? "24"}
+      height={height ?? "24"}
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -86,8 +86,8 @@ export function IconSearch({ fill, width, height }: any, props: any) {
 export function IconUser({ fill, width, height }: any, props: any) {
   return (
     <svg
-      width={width ?? "18"}
-      height={height ?? "20"}
+      width={width ?? "22"}
+      height={height ?? "24"}
       viewBox="0 0 18 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
