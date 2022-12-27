@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['localhost', 'picsum.photos'] // <== Domain name
+    domains: ['localhost', 'picsum.photos', 'adexa.co.uk'] // <== Domain name
   },
   env: {
     MONGODB_URI: process.env.MONGODB_URI,
