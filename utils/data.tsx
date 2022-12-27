@@ -56,7 +56,7 @@ const data: SampleDataType = {
   ],
   products: [
     {
-      name: "Machine 1: The Beginning",
+      name: "Machine 1",
       slug: "machine-1",
       category: "Chicken Machine",
       image: "https://picsum.photos/800?random=1",
@@ -68,7 +68,7 @@ const data: SampleDataType = {
       description: "A popular and expensive machine that makes chicken",
     },
     {
-      name: "Machine 2: The Sequel",
+      name: "Machine 2",
       slug: "machine-2-the-sequel",
       category: "Chicken Machine",
       image: "https://picsum.photos/800?random=2",
@@ -80,7 +80,7 @@ const data: SampleDataType = {
       description: "A popular and expensive machine",
     },
     {
-      name: "Machine 3: The Return of the Sequel",
+      name: "Machine 3",
       slug: "machine-3-the-return-of-the-sequel",
       category: "Chicken Machine",
       image: "https://picsum.photos/800?random=3",
@@ -92,7 +92,7 @@ const data: SampleDataType = {
       description: "A popular and expensive machine for making chicken",
     },
     {
-      name: "Machine 4: The Return of the Sequel 2",
+      name: "Machine 4",
       slug: "machine-4-the-return-of-the-sequel-2",
       category: "Beef Machine",
       image: "https://picsum.photos/800?random=4",
@@ -104,7 +104,7 @@ const data: SampleDataType = {
       description: "A popular chicken machine",
     },
     {
-      name: "Machine 5: The Return of the Sequel 3",
+      name: "Machine 5",
       slug: "machine-5-the-return-of-the-sequel-3",
       category: "Beef Machine",
       image: "https://picsum.photos/800?random=5",
@@ -116,7 +116,7 @@ const data: SampleDataType = {
       description: "A free chicken machine",
     },
     {
-      name: "Machine 6: The Return of the Sequel 3",
+      name: "Machine 6",
       slug: "machine-6-the-return-of-the-sequel-3",
       category: "Beef Machine",
       image: "https://picsum.photos/800?random=6",

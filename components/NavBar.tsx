@@ -68,7 +68,7 @@ export default function NavBar() {
         )}
       </div>
 
-      <Link href="/" className="text-lg font-semibold text-white flex-1 mx-0">
+      <Link href="/" className="text-lg font-semibold text-white flex-1 mx-0 flex flex-row">
         <IconLogo className="h-12" />
       </Link>
 
@@ -85,16 +85,16 @@ export default function NavBar() {
         variants={variants}
         animate={menuOpened ? "transform" : "stop"}
       >
-        <Link href="/" className="text-lg font-bold px-4 py-4 md:py-4">
+        <Link href="/" className="text-lg font-medium px-4 py-4 md:py-4">
           Home
         </Link>
-        <Link href="/" className="text-lg font-bold px-4 py-4 md:py-4">
+        <Link href="/" className="text-lg font-medium px-4 py-4 md:py-4">
           Categories
         </Link>
-        <Link href="/" className="text-lg font-bold px-4 py-4 md:py-4">
+        <Link href="/" className="text-lg font-medium px-4 py-4 md:py-4">
           My Account
         </Link>
-        <Link href="/" className="text-lg font-bold px-4 pt-4 pb-8 md:py-0">
+        <Link href="/" className="text-lg font-medium px-4 pt-4 pb-8 md:py-0">
           Contact
         </Link>
       </motion.div>

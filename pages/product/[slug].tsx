@@ -7,7 +7,6 @@ import { CartProductDataType, Store } from "../../utils/Store";
 import db from "../../utils/db";
 import Product from "../../models/Product";
 import axios from "axios";
-import toast from "react-hot-toast";
 import { customToast } from "../../utils/customToast";
 
 export default function ProductScreen(props: any) {
@@ -38,7 +37,7 @@ export default function ProductScreen(props: any) {
   return (
     <Layout title={product.name}>
       <div className="py-2">
-        <Link href="/">back to products</Link>
+        <Link href="/" className="primary-button">back to products</Link>
       </div>
       <div className="grid md:grid-cols-4 md:gap-3">
         {/* Image */}
@@ -74,7 +73,7 @@ export default function ProductScreen(props: any) {
           <div className="card p-5">
             <div className="mb-2 flex justify-between">
               <div>Price</div>
-              <div>{product.price}</div>
+              <div>£{product.price}</div>
             </div>
             <div className="mb-2 flex justify-between">
               <div>Status</div>
