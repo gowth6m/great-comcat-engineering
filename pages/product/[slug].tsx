@@ -36,7 +36,7 @@ export default function ProductScreen(props: any) {
 
   return (
     <Layout title={product.name}>
-      <div className="py-2">
+      <div className="py-2 mb-4">
         <Link href="/" className="primary-button">back to products</Link>
       </div>
       <div className="grid md:grid-cols-4 md:gap-3">
@@ -55,13 +55,13 @@ export default function ProductScreen(props: any) {
         <div>
           <ul>
             <li>
-              <h1 className="text-lg">{product.name}</h1>
+              <h1 className="text-lg font-semibold">{product.name}</h1>
             </li>
             <li>
               <h1 className="text-lg">{product.category}</h1>
             </li>
             <li>
-              <h1 className="text-lg">{product.rating}</h1>
+              <h1 className="text-lg">{product.rating}/5</h1>
             </li>
             <li>
               <h1 className="text-lg">{product.description}</h1>
