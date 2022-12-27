@@ -59,12 +59,12 @@ function OrderScreen() {
   return (
     <Auth>
       <Layout title={"Order " + orderId}>
-        <div className="text-lg font-semibold">{"Order " + orderId}</div>
+        <div className="text-lg font-semibold text-center mb-4">{"Order " + orderId}</div>
         {loading ? (
           <div>Loading...</div>
         ) : (
           <div>
-            <div className="flex flex-col md:flex-row w-full justify-center align-top">
+            <div className="flex flex-col md:flex-row w-full justify-center align-top gap-4">
               <div className="flex flex-col w-full md:w-2/6">
                 {/* Address */}
                 <div className="flex flex-col py-4">
