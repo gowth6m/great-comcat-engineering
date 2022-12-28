@@ -127,6 +127,18 @@ const data: SampleDataType = {
       countInStock: 20,
       description: "A popular and expensive machine for making big chicken",
     },
+    {
+      name: "Machine 7",
+      slug: "machine-7-the-return-of-the-sequel-2",
+      category: "Beef Machine",
+      image: "https://adexa.co.uk/image/cache/catalog/Adexa/PFE800-N-1200x1200.jpg",
+      price: 7202,
+      brand: "Big",
+      rating: 2.5,
+      numReviews: 81,
+      countInStock: 3,
+      description: "A popular top chicken machine",
+    },
   ],
 };
 
