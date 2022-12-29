@@ -6,6 +6,7 @@ import Layout from "../components/Layout";
 import { Auth } from "../utils/Auth";
 import { Store } from "../utils/Store";
 import toast from "react-hot-toast";
+import { RadioGroup } from "@headlessui/react";
 
 export default function PaymentScreen() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
@@ -50,21 +51,31 @@ export default function PaymentScreen() {
         <CheckoutWizard activeStep={2} />
         <form className="mx-auto max-w-screen-md" onSubmit={submitHandler}>
           <h1 className="mb-4 text-xl">Payment Method</h1>
-          {["PayPal", "Stripe", "Cash"].map((paymentMethod) => (
-            <div key={paymentMethod} className="mb-4">
-              <input
-                name="paymentMethod"
-                type="radio"
-                className="p-2 outline-none focus:ring-0"
-                id={paymentMethod}
-                checked={selectedPaymentMethod === paymentMethod}
-                onChange={() => setSelectedPaymentMethod(paymentMethod)}
-              />
-              <label className="p-2" htmlFor={paymentMethod}>
-                {paymentMethod}
-              </label>
-            </div>
-          ))}
+          <RadioGroup
+            value={selectedPaymentMethod}
+            onChange={setSelectedPaymentMethod}
+            className="mb-4"
+          >
+            {["PayPal", "Stripe", "Cash"].map((paymentMethod) => (
+              <RadioGroup.Option
+                value={paymentMethod}
+                key={paymentMethod}
+                className="mb-4 cursor-pointer"
+              >
+                {({ checked }) => (
+                  <span
+                    className={
+                      checked
+                        ? "bg-[var(--black)] p-2 rounded-xl text-white"
+                        : "p-2 rounded-xl"
+                    }
+                  >
+                    {paymentMethod}
+                  </span>
+                )}
+              </RadioGroup.Option>
+            ))}
+          </RadioGroup>
           <div className="mb-4 flex justify-between">
             <button
               className="default-button"

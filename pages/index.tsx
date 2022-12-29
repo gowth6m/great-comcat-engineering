@@ -21,13 +21,13 @@ export default function Home({ products }: any) {
     error: "",
   });
   const [addingItem, setAddingItem] = useState("");
-  const imgLinks = [
-    "https://picsum.photos/2200/800?random=1",
-    "https://picsum.photos/2200/800?random=2",
-    "https://picsum.photos/2200/800?random=3",
-    "https://picsum.photos/2200/800?random=4",
-    "https://picsum.photos/2200/800?random=5",
-  ];
+  // const imgLinks = [
+  //   "https://picsum.photos/2200/800?random=1",
+  //   "https://picsum.photos/2200/800?random=2",
+  //   "https://picsum.photos/2200/800?random=3",
+  //   "https://picsum.photos/2200/800?random=4",
+  //   "https://picsum.photos/2200/800?random=5",
+  // ];
 
   useEffect(() => {
     const fetchProducts = async () => {

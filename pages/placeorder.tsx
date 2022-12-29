@@ -90,7 +90,7 @@ export default function PlaceOrderScreen() {
               <div className="flex flex-col py-4">
                 <div className="flex flex-col mb-2">{paymentMethod}</div>
                 <div className="flex flex-col">
-                  <Link className="primary-button md:w-1/6" href="/shipping">
+                  <Link className="primary-button md:w-1/6" href="/payment">
                     Edit
                   </Link>
                 </div>
