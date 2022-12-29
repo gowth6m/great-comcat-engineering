@@ -54,25 +54,27 @@ export default function PaymentScreen() {
           <RadioGroup
             value={selectedPaymentMethod}
             onChange={setSelectedPaymentMethod}
-            className="mb-4"
+            className="mb-4 flex flex-col md:flex-row w-full justify-between items-center gap-2"
           >
             {["PayPal", "Stripe", "Cash"].map((paymentMethod) => (
               <RadioGroup.Option
                 value={paymentMethod}
                 key={paymentMethod}
-                className="mb-4 cursor-pointer"
+                className={({ active, checked }) =>
+                  `${
+                    active
+                      ? "ring-2 ring-white ring-opacity-60 ring-offset-2 ring-[var(--blue)]"
+                      : ""
+                  }
+                ${
+                  checked
+                    ? "bg-[var(--black)] bg-opacity-75 text-white"
+                    : "bg-white"
+                }
+                  relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none mb-1 w-full`
+                }
               >
-                {({ checked }) => (
-                  <span
-                    className={
-                      checked
-                        ? "bg-[var(--black)] p-2 rounded-xl text-white"
-                        : "p-2 rounded-xl"
-                    }
-                  >
-                    {paymentMethod}
-                  </span>
-                )}
+                {({ checked }) => <span>{paymentMethod}</span>}
               </RadioGroup.Option>
             ))}
           </RadioGroup>
@@ -89,9 +91,6 @@ export default function PaymentScreen() {
             <button
               className="primary-button"
               type="button"
-              //   onClick={() => {
-              //     router.push("/placeorder");
-              //   }}
               onClick={submitHandler}
             >
               Next
