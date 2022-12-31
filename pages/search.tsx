@@ -2,6 +2,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import toast from "react-hot-toast";
+import { IconArrowDown, IconArrowUp } from "../components/CustomIcons";
 import Layout from "../components/Layout";
 import ProductItem from "../components/ProductItem";
 import Product from "../models/Product";
@@ -9,7 +10,7 @@ import { customToast } from "../utils/customToast";
 import db from "../utils/db";
 import { CartProductDataType, Store } from "../utils/Store";
 
-const PAGE_SIZE = 3;
+const PAGE_SIZE = 10;
 
 const prices = [
   {
@@ -33,6 +34,7 @@ export default function Search(props: any) {
   const { state, dispatchStore } = useContext(Store);
   const { cart } = state;
   const [addingItem, setAddingItem] = useState("");
+  const [openFilter, setOpenFilter] = useState(false);
 
   const {
     query = "all",
@@ -114,7 +116,24 @@ export default function Search(props: any) {
   return (
     <Layout title="search">
       <div className="grid md:grid-cols-4 md:gap-5">
-        <div>
+        <div
+          className="w-full bg-[var(--blue)] cursor-pointer md:hidden p-2 rounded-lg text-white font-semibold"
+          onClick={() => {
+            setOpenFilter(!openFilter);
+          }}
+        >
+          <div className="flex flex-row">
+            <div>Filter</div>
+            <div className="ml-auto">
+              {openFilter ? (
+                <IconArrowUp fill="white" />
+              ) : (
+                <IconArrowDown fill="white" />
+              )}
+            </div>
+          </div>
+        </div>
+        <div className={openFilter ? "initial" : "hidden md:block"}>
           <div className="my-3">
             <h2>Categories</h2>
             <select
@@ -168,7 +187,7 @@ export default function Search(props: any) {
             </select>
           </div>
         </div>
-        <div className="md:col-span-3">
+        <div className="md:col-span-3 mt-2">
           <div className="mb-2 flex items-center justify-between border-b-2 pb-2">
             <div className="flex items-center">
               {products.length === 0 ? "No" : countProducts} Results
@@ -187,7 +206,7 @@ export default function Search(props: any) {
                   onClick={() => router.push("/search")}
                   className="primary-button"
                 >
-                  Close
+                  Reset
                 </button>
               ) : null}
             </div>
@@ -215,8 +234,6 @@ export default function Search(props: any) {
             </div>
             <ul className="flex">
               {products.length > 0 &&
-                // [...Array(pages).keys()]
-                // pages.map((pageNumber: number) => (
                 Array.from(Array(pages).keys()).map((pageNumber) => (
                   <li key={pageNumber}>
                     <button

@@ -144,6 +144,8 @@ textarea {
 
 select {
   background-color: var(--white) !important;
+  border: var(--blue) 1px solid;
+  /* background-color: var(--blue) !important; */
   @apply rounded-xl p-2 outline-none ring-[var(--blue)] focus:ring text-black;
 }
 

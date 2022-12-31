@@ -155,7 +155,10 @@ export function IconHeart({ fill, width, height, className }: any, props: any) {
   );
 }
 
-export function IconLoadingAnimation({ fill, width, height, className }: any, props: any) {
+export function IconLoadingAnimation(
+  { fill, width, height, className }: any,
+  props: any
+) {
   return (
     <svg
       role="status"
@@ -172,6 +175,50 @@ export function IconLoadingAnimation({ fill, width, height, className }: any, pr
         d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
         fill="currentColor"
       />
+    </svg>
+  );
+}
+
+export function IconArrowUp(
+  { fill, width, height, className }: any,
+  props: any
+) {
+  return (
+    <svg
+      fill="none"
+      viewBox="0 0 24 24"
+      width={width ?? "24"}
+      height={height ?? "24"}
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        xmlns="http://www.w3.org/2000/svg"
+        d="M11.2929 7.29289C11.6834 6.90237 12.3166 6.90237 12.7071 7.29289L18.7071 13.2929C19.0976 13.6834 19.0976 14.3166 18.7071 14.7071C18.3166 15.0976 17.6834 15.0976 17.2929 14.7071L12 9.41421L6.70711 14.7071C6.31658 15.0976 5.68342 15.0976 5.29289 14.7071C4.90237 14.3166 4.90237 13.6834 5.29289 13.2929L11.2929 7.29289Z"
+        fill={fill ?? "#0D0D0D"}
+      ></path>
+    </svg>
+  );
+}
+
+export function IconArrowDown(
+  { fill, width, height, className }: any,
+  props: any
+) {
+  return (
+    <svg
+      fill="none"
+      viewBox="0 0 24 24"
+      width={width ?? "24"}
+      height={height ?? "24"}
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        xmlns="http://www.w3.org/2000/svg"
+        d="M5.29289 9.29289C5.68342 8.90237 6.31658 8.90237 6.70711 9.29289L12 14.5858L17.2929 9.29289C17.6834 8.90237 18.3166 8.90237 18.7071 9.29289C19.0976 9.68342 19.0976 10.3166 18.7071 10.7071L12.7071 16.7071C12.3166 17.0976 11.6834 17.0976 11.2929 16.7071L5.29289 10.7071C4.90237 10.3166 4.90237 9.68342 5.29289 9.29289Z"
+        fill={fill ?? "#0D0D0D"}
+      ></path>
     </svg>
   );
 }
