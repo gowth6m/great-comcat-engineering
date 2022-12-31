@@ -76,7 +76,7 @@ export default function Search(props: any) {
   const categoryHandler = (e: any) => {
     filterSearch({ category: e.target.value });
   };
-  const pageHandler = ({ page }: any) => {
+  const pageHandler = (page: any) => {
     filterSearch({ page });
   };
   const brandHandler = (e: any) => {
