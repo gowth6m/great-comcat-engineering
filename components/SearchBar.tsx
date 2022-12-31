@@ -1,8 +1,15 @@
 import { motion } from "framer-motion";
-import React from "react";
+import router from "next/router";
+import React, { useState } from "react";
 
 export default function SearchBar({ hidden }: any) {
   const [show] = React.useState(hidden);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const searchSubmitHandler = (e: any) => {
+    e.preventDefault();
+    router.push(`/search?query=${searchQuery}`);
+  };
 
   return (
     <motion.div
@@ -15,10 +22,21 @@ export default function SearchBar({ hidden }: any) {
     >
       <div className="text-white flex flex-col justify-center align-middle w-3/6 mx-auto text-center">
         <br />
-        <label htmlFor="" className="text-lg">
-          Search
-        </label>
-        <input type="text" autoFocus />
+        <form onSubmit={searchSubmitHandler}>
+          <input
+            type="search"
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search for products"
+            className="w-full h-10 rounded-lg text-white text-lg px-2 text-center"
+            autoFocus
+          />
+          <button
+            type="submit"
+            className="primary-button mt-2 w-full"
+          >
+            Submit
+          </button>
+        </form>
       </div>
     </motion.div>
   );

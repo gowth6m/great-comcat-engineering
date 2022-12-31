@@ -21,6 +21,12 @@ export default function NavBar() {
   const { width } = useWindowDimensions();
   const router = useRouter();
   const [showSearch, setShowSearch] = useState(false);
+  // const [searchQuery, setSearchQuery] = useState("");
+
+  // const searchSubmitHandler = (e: any) => {
+  //   e.preventDefault();
+  //   router.push(`/search?searchQuery=${searchQuery}`);
+  // };
 
   useEffect(() => {
     setCartItemsCount(
