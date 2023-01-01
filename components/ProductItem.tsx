@@ -32,7 +32,7 @@ export default function ProductItem({
         <img
           src={product.image}
           alt={product.slug}
-          className="w-full first-line:rounded-t-xl shadow object-cover"
+          className="w-full first-line:rounded-t-xl shadow object-cover h-72 md:h-auto"
         />
       </Link>
 
