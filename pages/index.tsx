@@ -87,10 +87,19 @@ export default function Home({ products }: any) {
         </Splide>
       </div> */}
       <Layout title="Home">
+        <div className="rounded-lg w-full h-full bg-[var(--black)] text-5xl p-4 text-white font-bold">Great Comcat Engineering</div>
+        <br />
+
         <div className="overflow-hidden flex justify-center align-middle bg-[var(--black)] text-white rounded-xl mb-4">
-          <div className="cursor-pointer flex-1 py-3 text-center bg-[var(--blue)]">Bestsellers</div>
-          <div className="cursor-pointer flex-1 py-3 text-center">New Arrivals</div>
-          <div className="cursor-pointer flex-1 py-3 text-center">Clearance</div>
+          <div className="cursor-pointer flex-1 py-3 text-center bg-[var(--blue)]">
+            Bestsellers
+          </div>
+          <div className="cursor-pointer flex-1 py-3 text-center">
+            New Arrivals
+          </div>
+          <div className="cursor-pointer flex-1 py-3 text-center">
+            Clearance
+          </div>
         </div>
         {loading ? (
           <div className="w-full h-[100dvh] flex justify-center align-middle text-center">
@@ -114,7 +123,7 @@ export default function Home({ products }: any) {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-5 w-full">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-4 lg:grid-cols-6 w-full">
               {prod.map((product: any) => {
                 return (
                   <ProductItem

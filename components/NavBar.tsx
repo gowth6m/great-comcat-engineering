@@ -58,119 +58,142 @@ export default function NavBar() {
   };
 
   return (
-    <nav className="z-50 fixed top-0 w-full flex h-12  mx-0 justify-between items-center bg-[var(--black)]">
-      {showSearch ? <SearchBar /> : null}
+    <nav className="z-50 fixed top-0 w-full flex h-14  mx-0 justify-between items-center bg-[var(--black)]">
+      {/* {showSearch ? <SearchBar /> : null} */}
 
-      <div
-        className="text-lg font-semibold text-white cursor-pointer mx-2 ml-3"
-        onClick={() => {
-          setMenuOpened(!menuOpened);
-        }}
-      >
-        {!menuOpened ? (
-          <IconMenu open={false} fill={"white"} className="z-50 md:hidden" />
-        ) : (
-          <IconMenu open={true} fill={"white"} className="z-50 md:hidden" />
-        )}
-      </div>
-
-      <Link
-        href="/"
-        className="text-lg font-semibold text-white flex-1 mx-0 flex flex-row"
-      >
-        <IconLogo className="h-12" />
-      </Link>
-
-      {/* NAV MENU ITEMS */}
-      <motion.div
-        className={
-          menuOpened
-            ? "navbar origin-top"
-            : "hidden" +
-              (Number(width) > 768
-                ? "hidden md:flex justify-center items-center flex-auto"
-                : "")
-        }
-        variants={variants}
-        animate={menuOpened ? "transform" : "stop"}
-      >
-        <Link href="/" className="text-lg font-medium px-4 py-4 md:py-4">
-          Home
-        </Link>
-        <Link href="/" className="text-lg font-medium px-4 py-4 md:py-4">
-          Categories
-        </Link>
-        <Link href="/" className="text-lg font-medium px-4 py-4 md:py-4">
-          My Account
-        </Link>
-        <Link href="/" className="text-lg font-medium px-4 pt-4 pb-8 md:py-0">
-          Contact
-        </Link>
-      </motion.div>
-
-      <div className="flex flex-row justify-end items-center flex-1">
-        <Link
-          className="flex flex-row justify-center items-center mx-1"
-          href="/cart"
-        >
-          {cartItemsCount > 0 && (
-            <span className="bg-[var(--blue)] rounded-full text-white px-2 mx-2">
-              {cartItemsCount}
-            </span>
-          )}
-          <IconCart open={false} fill={"white"} />
-        </Link>
-
-        <div
-          className="flex flex-row justify-center items-center mx-1 cursor-pointer"
-          onClick={() => {
-            setShowSearch(!showSearch);
-          }}
-        >
-          <IconSearch open={true} fill={"white"} />
-        </div>
-
-        <Menu as="div" className="relative inline-block">
-          <Menu.Button
-            className=" py-4 text-white mx-1 mr-4"
+      {showSearch ? (
+        <div className="flex flex-row w-full">
+          <SearchBar />
+          <div
+            className="my-auto mx-2 cursor-pointer"
             onClick={() => {
-              session?.user
-                ? setProfileOpened(!profileOpened)
-                : router.push("/login");
+              setShowSearch(!showSearch);
             }}
           >
-            <IconUser fill={"white"} />
-          </Menu.Button>
+            <IconMenu open={true} height="22px" fill="white" />
+          </div>
+        </div>
+      ) : (
+        <div className="z-50 fixed top-0 w-full flex h-14  mx-0 justify-between items-center bg-[var(--black)]">
+          <div
+            className="text-lg font-semibold text-white cursor-pointer mx-2 ml-3"
+            onClick={() => {
+              setMenuOpened(!menuOpened);
+            }}
+          >
+            {!menuOpened ? (
+              <IconMenu
+                open={false}
+                fill={"white"}
+                className="z-50 md:hidden"
+              />
+            ) : (
+              <IconMenu open={true} fill={"white"} className="z-50 md:hidden" />
+            )}
+          </div>
 
-          {session?.user ? (
-            <Menu.Items className="absolute right-0 w-56 origin-top-right">
-              <motion.div
-                className="origin-top bg-white shadow-lg"
-                variants={variantsProfile}
-                animate={profileOpened ? "transform" : "stop"}
+          <Link
+            href="/"
+            className="text-lg font-semibold text-white flex-1 mx-2 flex flex-row"
+          >
+            <IconLogo className="h-12" />
+          </Link>
+
+          {/* NAV MENU ITEMS */}
+          <motion.div
+            className={
+              menuOpened
+                ? "navbar origin-top"
+                : "hidden" +
+                  (Number(width) > 768
+                    ? "hidden md:flex justify-center items-center flex-auto"
+                    : "")
+            }
+            variants={variants}
+            animate={menuOpened ? "transform" : "stop"}
+          >
+            <Link href="/" className="text-lg px-4 py-4 md:py-4">
+              HOME
+            </Link>
+            <Link href="/" className="text-lg px-4 py-4 md:py-4">
+              ABOUT
+            </Link>
+            <Link href="/" className="text-lg px-4 py-4 md:py-4">
+              CATEGORIES
+            </Link>
+            <Link href="/" className="text-lg px-4 pt-4 pb-8 md:py-0">
+              CONTACT
+            </Link>
+          </motion.div>
+
+          <div className="flex flex-row justify-end items-center flex-1">
+            <div
+              className="flex flex-row justify-center items-center mx-2 cursor-pointer"
+              onClick={() => {
+                setShowSearch(!showSearch);
+              }}
+            >
+              <IconSearch open={true} fill={"white"} />
+            </div>
+
+            <Menu as="div" className="relative inline-block">
+              <Menu.Button
+                className=" py-4 text-white mx-2"
+                onClick={() => {
+                  session?.user
+                    ? setProfileOpened(!profileOpened)
+                    : router.push("/login");
+                }}
               >
-                <DropdownLink className="dropdown-link" href="/profile">
-                  Profile
-                </DropdownLink>
-                <DropdownLink className="dropdown-link" href="/order-history">
-                  Order History
-                </DropdownLink>
-                <DropdownLink
-                  className="dropdown-link"
-                  href="#"
-                  onClick={() => {
-                    logoutHandler();
-                  }}
-                >
-                  Logout
-                </DropdownLink>
-              </motion.div>
-            </Menu.Items>
-          ) : (
-            <></>
-          )}
-        </Menu>
-      </div>
+                <IconUser fill={"white"} />
+              </Menu.Button>
+
+              {session?.user ? (
+                <Menu.Items className="absolute right-0 w-56 origin-top-right">
+                  <motion.div
+                    className="origin-top bg-[var(--black)] shadow-lg"
+                    variants={variantsProfile}
+                    animate={profileOpened ? "transform" : "stop"}
+                  >
+                    <DropdownLink className="dropdown-link" href="/profile">
+                      Profile
+                    </DropdownLink>
+                    <DropdownLink
+                      className="dropdown-link"
+                      href="/order-history"
+                    >
+                      Order History
+                    </DropdownLink>
+                    <DropdownLink
+                      className="dropdown-link"
+                      href="#"
+                      onClick={() => {
+                        logoutHandler();
+                      }}
+                    >
+                      Logout
+                    </DropdownLink>
+                  </motion.div>
+                </Menu.Items>
+              ) : (
+                <></>
+              )}
+            </Menu>
+
+            <Link
+              className="flex flex-row justify-center items-center mx-2 mr-6"
+              href="/cart"
+            >
+              {cartItemsCount > 0 && (
+                <span className="bg-[var(--blue)] rounded-full text-white text-xs z-10 absolute w-[22px] h-[22px] top-2 right-2 flex justify-center align-middle">
+                  <div className="my-auto">{cartItemsCount}</div>
+                </span>
+              )}
+              <IconCart open={false} fill={"white"} />
+            </Link>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

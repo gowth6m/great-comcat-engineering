@@ -2,7 +2,11 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import toast from "react-hot-toast";
-import { IconArrowDown, IconArrowUp } from "../components/CustomIcons";
+import {
+  IconArrowDown,
+  IconArrowUp,
+  IconMenu,
+} from "../components/CustomIcons";
 import Layout from "../components/Layout";
 import ProductItem from "../components/ProductItem";
 import Product from "../models/Product";
@@ -14,15 +18,15 @@ const PAGE_SIZE = 10;
 
 const prices = [
   {
-    name: "$1 to $50",
+    name: "£1 to £50",
     value: "1-50",
   },
   {
-    name: "$51 to $200",
+    name: "£51 to £200",
     value: "51-200",
   },
   {
-    name: "$201 to $1000",
+    name: "£201 to £1000",
     value: "201-1000",
   },
 ];
@@ -204,9 +208,13 @@ export default function Search(props: any) {
               price !== "all" ? (
                 <button
                   onClick={() => router.push("/search")}
-                  className="primary-button"
+                  className="bg-[var(--blue)] rounded-full"
                 >
-                  Reset
+                  <IconMenu
+                    open={true}
+                    className="p-1 rounded-full"
+                    fill="white"
+                  />
                 </button>
               ) : null}
             </div>
