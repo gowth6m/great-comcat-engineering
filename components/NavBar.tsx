@@ -62,7 +62,7 @@ export default function NavBar() {
       {/* {showSearch ? <SearchBar /> : null} */}
 
       {showSearch ? (
-        <div className="flex flex-row w-full">
+        <div className="flex flex-row w-full mx-2">
           <SearchBar />
           <div
             className="my-auto mx-2 cursor-pointer"
@@ -94,7 +94,7 @@ export default function NavBar() {
 
           <Link
             href="/"
-            className="text-lg font-semibold text-white flex-1 mx-2 flex flex-row"
+            className="text-lg font-semibold text-white flex-1 mx-0 flex flex-row"
           >
             <IconLogo className="h-12" />
           </Link>
