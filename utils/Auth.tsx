@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
-import { SessionProvider, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
-export function Auth({ children }: any) {
+export function Auth({ children, adminOnly }: any) {
   const router = useRouter();
 
-  const { status } = useSession({
+  const { status, data: session }: any = useSession({
     required: true,
     onUnauthenticated() {
       router.push("/login");
@@ -13,6 +13,10 @@ export function Auth({ children }: any) {
 
   if (status === "loading") {
     return <div>Loading...</div>;
+  }
+
+  if (adminOnly && !session.user.isAdmin) {
+    router.push("/login");
   }
 
   return <>{children}</>;

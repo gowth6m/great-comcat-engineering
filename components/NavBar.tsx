@@ -168,9 +168,9 @@ export default function NavBar() {
                     {session?.user.isAdmin && (
                       <DropdownLink
                         className="dropdown-link"
-                        href="/order-history"
+                        href="/admin/dashboard"
                       >
-                        Admin
+                        Admin Dashboard
                       </DropdownLink>
                     )}
 
