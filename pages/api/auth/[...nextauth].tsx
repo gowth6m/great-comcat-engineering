@@ -36,11 +36,15 @@ const authOptions: NextAuthOptions = {
 
   callbacks: {
     async jwt({ token, user }: any) {
-      if (user?._id) token._id = user._id;
+      if (user) {
+        token.accessToken = user._id;
+        token.user = user;
+      }
       return token;
     },
     async session({ session, token }: any) {
-      if (token?._id) session.user._id = token._id;
+      session.accessToken = token.accessToken;
+      session.user = token.user;
       return session;
     },
   },

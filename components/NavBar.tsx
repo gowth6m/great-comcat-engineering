@@ -13,7 +13,7 @@ import SearchBar from "./SearchBar";
 import IconLogo from "./IconLogo";
 
 export default function NavBar() {
-  const { status, data: session } = useSession();
+  const { status, data: session }: any = useSession();
   const { state, dispatchStore } = useContext(Store);
   const [cartItemsCount, setCartItemsCount] = useState(0);
   const [menuOpened, setMenuOpened] = useState(false);
@@ -164,6 +164,16 @@ export default function NavBar() {
                     >
                       Order History
                     </DropdownLink>
+
+                    {session?.user.isAdmin && (
+                      <DropdownLink
+                        className="dropdown-link"
+                        href="/order-history"
+                      >
+                        Admin
+                      </DropdownLink>
+                    )}
+
                     <DropdownLink
                       className="dropdown-link"
                       href="#"
