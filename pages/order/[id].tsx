@@ -1,6 +1,8 @@
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useReducer } from "react";
+import toast from "react-hot-toast";
 import Layout from "../../components/Layout";
 import { Auth } from "../../utils/Auth";
 import { getError } from "../../utils/error";
@@ -13,16 +15,67 @@ function reducer(state: any, action: any) {
       return { ...state, loading: false, order: action.payload, error: "" };
     case "FETCH_FAIL":
       return { ...state, loading: false, error: action.payload };
+
+    case "DELIVER_REQUEST":
+      return { ...state, loadingDeliver: true };
+    case "DELIVER_SUCCESS":
+      return { ...state, loadingDeliver: false, successDeliver: true };
+    case "DELIVER_FAIL":
+      return { ...state, loadingDeliver: false };
+    case "DELIVER_RESET":
+      return {
+        ...state,
+        loadingDeliver: false,
+        successDeliver: false,
+      };
+
     default:
       state;
   }
 }
 
 function OrderScreen() {
+  // const { data: session }: any = useSession();
+  // const { query } = useRouter();
+  // const orderId = query.id;
+
+  // const [{ loading, error, order }, dispatch] = useReducer(reducer, {
+  //   loading: true,
+  //   order: {},
+  //   error: "",
+  // });
+
+  // useEffect(() => {
+  //   const fetchOrder = async () => {
+  //     try {
+  //       dispatch({ type: "FETCH_REQUEST" });
+  //       const { data } = await axios.get(`/api/orders/${orderId}`);
+  //       dispatch({ type: "FETCH_SUCCESS", payload: data });
+  //     } catch (error) {
+  //       dispatch({ type: "FETCH_FAIL", payload: getError(error) });
+  //     }
+  //   };
+  //   if (!order._id || (order._id && order._id !== orderId)) {
+  //     fetchOrder();
+  //   }
+  // }, [order, orderId]);
+
+  const { data: session }: any = useSession();
   const { query } = useRouter();
   const orderId = query.id;
 
-  const [{ loading, error, order }, dispatch] = useReducer(reducer, {
+  const [
+    {
+      loading,
+      error,
+      order,
+      successPay,
+      loadingPay,
+      loadingDeliver,
+      successDeliver,
+    },
+    dispatch,
+  ] = useReducer(reducer, {
     loading: true,
     order: {},
     error: "",
@@ -32,34 +85,72 @@ function OrderScreen() {
     const fetchOrder = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/orders/${orderId}`);
+        const { data }: any = await axios.get(`/api/orders/${orderId}`);
         dispatch({ type: "FETCH_SUCCESS", payload: data });
-      } catch (error) {
-        dispatch({ type: "FETCH_FAIL", payload: getError(error) });
+      } catch (err: any) {
+        dispatch({ type: "FETCH_FAIL", payload: getError(err) });
       }
     };
-    if (!order._id || (order._id && order._id !== orderId)) {
+    if (!order._id || successDeliver || (order._id && order._id !== orderId)) {
       fetchOrder();
+      if (successPay) {
+        dispatch({ type: "PAY_RESET" });
+      }
+      if (successDeliver) {
+        dispatch({ type: "DELIVER_RESET" });
+      }
     }
-  }, [order, orderId]);
+    // } else {
+    //   const loadPaypalScript = async () => {
+    //     const { data: clientId } = await axios.get("/api/keys/paypal");
+    //     paypalDispatch({
+    //       type: "resetOptions",
+    //       value: {
+    //         "client-id": clientId,
+    //         currency: "USD",
+    //       },
+    //     });
+    //     paypalDispatch({ type: "setLoadingStatus", value: "pending" });
+    //   };
+    //   loadPaypalScript();
+    // }
+  }, [order, orderId, successDeliver, successPay]);
 
   const {
     shippingAddress,
+    paymentMethod,
+    orderItems,
+    itemsPrice,
+    taxPrice,
+    shippingPrice,
+    totalPrice,
+    isPaid,
+    paidAt,
     isDelivered,
     deliveredAt,
-    paymentMethod,
-    itemsPrice,
-    cartItems,
-    totalPrice,
-    shippingPrice,
-    taxPrice,
-    orderItems,
   } = order;
+
+  async function deliverOrderHandler() {
+    try {
+      dispatch({ type: "DELIVER_REQUEST" });
+      const { data } = await axios.put(
+        `/api/admin/orders/${order._id}/deliver`,
+        {}
+      );
+      dispatch({ type: "DELIVER_SUCCESS", payload: data });
+      toast.success("Order is delivered");
+    } catch (err) {
+      dispatch({ type: "DELIVER_FAIL", payload: getError(err) });
+      toast.error(getError(err));
+    }
+  }
 
   return (
     <Auth>
       <Layout title={"Order " + orderId}>
-        <div className="text-lg font-semibold text-center mb-4">{"Order " + orderId}</div>
+        <div className="text-lg font-semibold text-center mb-4">
+          {"Order " + orderId}
+        </div>
         {loading ? (
           <div>Loading...</div>
         ) : (
@@ -94,7 +185,7 @@ function OrderScreen() {
                 {/* Order Items */}
                 <div className="flex flex-col py-4">
                   <div className="flex flex-col m-1">
-                    {orderItems.map((item: any, index:number) => (
+                    {orderItems.map((item: any, index: number) => (
                       <div key={index}>
                         {item.name} ({item.qty}) £{item.price * item.qty}
                       </div>
@@ -124,6 +215,18 @@ function OrderScreen() {
                     <div>Total</div>
                     <div>£{totalPrice}</div>
                   </div>
+
+                  {session.user.isAdmin && !order.isDelivered && (
+                    <div>
+                      {loadingDeliver && <div>Loading...</div>}
+                      <button
+                        className="secondary-button w-full my-2"
+                        onClick={deliverOrderHandler}
+                      >
+                        Deliver Order
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
               <br />
