@@ -61,7 +61,7 @@ export default function AdminDashboardScreen() {
             <ul className="flex flex-row md:flex-col space-x-4 md:space-x-0 md:space-y-2">
               <li>
                 <Link
-                  className="bg-[var(--blue)] hover:text-[var(--black)] p-1 rounded-lg"
+                  className="bg-[var(--black)] hover:text-[var(--blue)] p-1 rounded-lg"
                   href="/admin/dashboard"
                 >
                   Dashboard
