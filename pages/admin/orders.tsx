@@ -1,6 +1,7 @@
 import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useReducer } from "react";
+import AdminDashNav from "../../components/AdminDashNav";
 import { IconDelivery, IconMoney } from "../../components/CustomIcons";
 import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
@@ -44,42 +45,14 @@ export default function AdminOrderScreen() {
     <Auth adminOnly>
       <Layout title="Admin Dashboard">
         <div className="flex flex-col md:flex-row">
-          <div className="m-5 flex flex-row md:flex-col space-x-4 md:space-x-0 md:space-y-2 bg-[var(--blue)] p-2 md:w-2/6 rounded-lg justify-center align-top h-full">
-            <Link
-              className="bg-[var(--blue)] hover:text-[var(--black)] p-2 rounded-lg"
-              href="/admin/dashboard"
-            >
-              Dashboard
-            </Link>
-
-            <Link
-              className="bg-[var(--black)] hover:text-[var(--blue)] p-2 rounded-lg"
-              href="/admin/orders"
-            >
-              Orders
-            </Link>
-
-            <Link
-              className="bg-[var(--blue)] hover:text-[var(--black)] p-2 rounded-lg"
-              href="/admin/products"
-            >
-              Products
-            </Link>
-
-            <Link
-              className="bg-[var(--blue)] hover:text-[var(--black)] p-2 rounded-lg"
-              href="/admin/users"
-            >
-              Users
-            </Link>
-          </div>
+          <AdminDashNav active={1} />
           <div className="overflow-x-auto md:col-span-3 flex-auto w-full">
             {loading ? (
               <Loading />
             ) : error ? (
               <div className="alert-error">{error}</div>
             ) : (
-              <div className="overflow-x-auto">
+              <div className="">
                 <table className="min-w-full">
                   <tbody>
                     {orders.map((order: any) => (
