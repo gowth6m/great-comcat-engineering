@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useReducer } from "react";
 import toast from "react-hot-toast";
 import Layout from "../../components/Layout";
+import Loading from "../../components/Loading";
 import { Auth } from "../../utils/Auth";
 import { getError } from "../../utils/error";
 
@@ -152,7 +153,7 @@ function OrderScreen() {
           {"Order " + orderId}
         </div>
         {loading ? (
-          <div>Loading...</div>
+          <Loading />
         ) : (
           <div>
             <div className="flex flex-col md:flex-row w-full justify-center align-top gap-4">

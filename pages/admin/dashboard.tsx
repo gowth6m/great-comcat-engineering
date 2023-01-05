@@ -56,45 +56,38 @@ export default function AdminDashboardScreen() {
   return (
     <Auth adminOnly>
       <Layout title="Admin Dashboard">
-        <div className="grid md:grid-cols-4 md:gap-5">
-          <div>
-            <ul className="flex flex-row md:flex-col space-x-4 md:space-x-0 md:space-y-2">
-              <li>
-                <Link
-                  className="bg-[var(--black)] hover:text-[var(--blue)] p-1 rounded-lg"
-                  href="/admin/dashboard"
-                >
-                  Dashboard
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="bg-[var(--blue)] hover:text-[var(--black)] p-1 rounded-lg"
-                  href="/admin/orders"
-                >
-                  Orders
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="bg-[var(--blue)] hover:text-[var(--black)] p-1 rounded-lg"
-                  href="/admin/products"
-                >
-                  Products
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="bg-[var(--blue)] hover:text-[var(--black)] p-1 rounded-lg"
-                  href="/admin/users"
-                >
-                  Users
-                </Link>
-              </li>
-            </ul>
+        <div className="flex flex-col md:flex-row">
+          <div className="m-5 flex flex-row md:flex-col space-x-4 md:space-x-0 md:space-y-2 bg-[var(--blue)] p-2 md:w-2/6 rounded-lg justify-center align-top h-full">
+            <Link
+              className="bg-[var(--black)] hover:text-[var(--blue)] p-2 rounded-lg"
+              href="/admin/dashboard"
+            >
+              Dashboard
+            </Link>
+
+            <Link
+              className="bg-[var(--blue)] hover:text-[var(--black)] p-2 rounded-lg"
+              href="/admin/orders"
+            >
+              Orders
+            </Link>
+
+            <Link
+              className="bg-[var(--blue)] hover:text-[var(--black)] p-2 rounded-lg"
+              href="/admin/products"
+            >
+              Products
+            </Link>
+
+            <Link
+              className="bg-[var(--blue)] hover:text-[var(--black)] p-2 rounded-lg"
+              href="/admin/users"
+            >
+              Users
+            </Link>
           </div>
-          <div className="md:col-span-3">
-            <h1 className="mb-4 text-xl font-semibold">Admin Dashboard</h1>
+
+          <div className="md:col-span-3 flex-auto w-full">
             {loading ? (
               <Loading />
             ) : error ? (

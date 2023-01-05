@@ -2,6 +2,13 @@ import { getSession } from "next-auth/react";
 import Order from "../../../../../models/Order";
 import db from "../../../../../utils/db";
 
+var options = {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
+
 const handler = async (req: any, res: any) => {
   const session: any = await getSession({ req });
 

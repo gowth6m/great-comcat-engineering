@@ -1,6 +1,7 @@
 import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useReducer } from "react";
+import { IconDelivery, IconMoney } from "../../components/CustomIcons";
 import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
 import { Auth } from "../../utils/Auth";
@@ -42,46 +43,37 @@ export default function AdminOrderScreen() {
   return (
     <Auth>
       <Layout title="Admin Dashboard">
-        <div className="grid md:grid-cols-4 md:gap-5">
-          <div>
-            <ul className="flex flex-row md:flex-col space-x-4 md:space-x-0 md:space-y-2">
-              <li>
-                <Link
-                  className="bg-[var(--blue)] hover:text-[var(--black)] p-1 rounded-lg"
-                  href="/admin/dashboard"
-                >
-                  Dashboard
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="bg-[var(--black)] hover:text-[var(--blue)] p-1 rounded-lg"
-                  href="/admin/orders"
-                >
-                  Orders
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="bg-[var(--blue)] hover:text-[var(--black)] p-1 rounded-lg"
-                  href="/admin/products"
-                >
-                  Products
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="bg-[var(--blue)] hover:text-[var(--black)] p-1 rounded-lg"
-                  href="/admin/users"
-                >
-                  Users
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div className="overflow-x-auto md:col-span-3">
-            <h1 className="mb-4 text-xl">Admin Orders</h1>
+        <div className="flex flex-col md:flex-row">
+          <div className="m-5 flex flex-row md:flex-col space-x-4 md:space-x-0 md:space-y-2 bg-[var(--blue)] p-2 md:w-2/6 rounded-lg justify-center align-top h-full">
+            <Link
+              className="bg-[var(--blue)] hover:text-[var(--black)] p-2 rounded-lg"
+              href="/admin/dashboard"
+            >
+              Dashboard
+            </Link>
 
+            <Link
+              className="bg-[var(--black)] hover:text-[var(--blue)] p-2 rounded-lg"
+              href="/admin/orders"
+            >
+              Orders
+            </Link>
+
+            <Link
+              className="bg-[var(--blue)] hover:text-[var(--black)] p-2 rounded-lg"
+              href="/admin/products"
+            >
+              Products
+            </Link>
+
+            <Link
+              className="bg-[var(--blue)] hover:text-[var(--black)] p-2 rounded-lg"
+              href="/admin/users"
+            >
+              Users
+            </Link>
+          </div>
+          <div className="overflow-x-auto md:col-span-3 flex-auto w-full">
             {loading ? (
               <Loading />
             ) : error ? (
@@ -89,46 +81,53 @@ export default function AdminOrderScreen() {
             ) : (
               <div className="overflow-x-auto">
                 <table className="min-w-full">
-                  <thead className="border-b">
-                    <tr>
-                      <th className="px-5 text-left">ID</th>
-                      <th className="p-5 text-left">USER</th>
-                      <th className="p-5 text-left">DATE</th>
-                      <th className="p-5 text-left">TOTAL</th>
-                      <th className="p-5 text-left">PAID</th>
-                      <th className="p-5 text-left">DELIVERED</th>
-                      <th className="p-5 text-left">ACTION</th>
-                    </tr>
-                  </thead>
                   <tbody>
                     {orders.map((order: any) => (
-                      <tr key={order._id} className="border-b">
-                        <td className="p-5">{order._id.substring(20, 24)}</td>
-                        <td className="p-5">
-                          {order.user ? order.user.name : "DELETED USER"}
-                        </td>
-                        <td className="p-5">
-                          {order.createdAt.substring(0, 10)}
-                        </td>
-                        <td className="p-5">
-                          £{order.totalPrice.toLocaleString()}
-                        </td>
-                        <td className="p-5">
-                          {order.isPaid
-                            ? `${order.paidAt.substring(0, 10)}`
-                            : "not paid"}
-                        </td>
-                        <td className="p-5">
-                          {order.isDelivered
-                            ? `${order.deliveredAt.substring(0, 10)}`
-                            : "not delivered"}
-                        </td>
-                        <td className="p-5">
-                          <Link className="primary-button" href={`/order/${order._id}`} passHref>
+                      <div
+                        key={order.id}
+                        className="flex flex-col m-2 card p-2 rounded-lg space-y-1"
+                      >
+                        <div className="flex flex-row justify-between">
+                          <div className="flex flex-row">
+                            <div className="font-semibold">
+                              Order {order._id.substring(20, 24)}
+                            </div>
+                            <div className="px-1">
+                              @{order.user ? order.user.name : "DELETED USER"}
+                            </div>
+                          </div>
+
+                          <Link
+                            className="primary-button"
+                            href={`/order/${order._id}`}
+                            passHref
+                          >
                             Details
                           </Link>
-                        </td>
-                      </tr>
+                        </div>
+
+                        <div>£{order.totalPrice.toLocaleString()}</div>
+                        <div>
+                          {new Date(order.createdAt).toLocaleDateString()}
+                        </div>
+
+                        <div className="flex flex-row bg-[var(--blue)] justify-center p-2 rounded-lg">
+                          <div className="flex flex-row flex-1 justify-center text-white">
+                            <IconMoney className="mx-1" fill="white" />
+                            {order.isPaid
+                              ? `${new Date(order.paidAt).toLocaleDateString()}`
+                              : "Not paid"}
+                          </div>
+                          <div className="flex flex-row flex-1 justify-center text-white">
+                            <IconDelivery className="mx-1" fill="white" />
+                            {order.isDelivered
+                              ? `${new Date(
+                                  order.deliveredAt
+                                ).toLocaleDateString()}`
+                              : "Not delivered"}
+                          </div>
+                        </div>
+                      </div>
                     ))}
                   </tbody>
                 </table>

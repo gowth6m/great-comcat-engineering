@@ -96,7 +96,7 @@ export default function NavBar() {
             href="/"
             className="text-lg font-semibold text-white flex-1 mx-0 flex flex-row"
           >
-            <IconLogo className="h-12" />
+            <IconLogo className="h-9" />
           </Link>
 
           {/* NAV MENU ITEMS */}
