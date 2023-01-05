@@ -24,14 +24,14 @@ function CartScreen() {
     const quantity = Number(qty);
     const { data } = await axios.get(`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
-      customToast("Sorry. Product is out of stock")
+      customToast("Sorry. Product is out of stock");
       return;
     }
     dispatchStore({
       type: "CART_ADD_ITEM",
       payload: { ...item, qty: quantity },
     });
-    customToast("Product updated in cart")
+    customToast("Product updated in cart");
   };
 
   return (
@@ -180,7 +180,7 @@ function CartScreen() {
                   £
                   {cartItems
                     .reduce((a: any, c: any) => a + c.price * c.qty, 0)
-                    .toLocaleString()}
+                    .toLocaleString("en", options)}
                 </div>
               </div>
               <div className="w-full flex justify-end mb-1">
@@ -234,3 +234,8 @@ function CartScreen() {
 }
 
 export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });
+
+const options = {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+};

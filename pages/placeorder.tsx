@@ -23,7 +23,9 @@ export default function PlaceOrderScreen() {
 
   const shippingPrice = itemsPrice > 200 ? 0 : 10;
   const taxPrice = round2(0.2 * itemsPrice);
-  const totalPrice = round2(itemsPrice + shippingPrice + taxPrice);
+  const totalPrice = round2(
+    itemsPrice + shippingPrice + taxPrice
+  ).toLocaleString("en", options);
 
   const router = useRouter();
   useEffect(() => {
@@ -174,3 +176,8 @@ export default function PlaceOrderScreen() {
     </Auth>
   );
 }
+
+const options = {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+};

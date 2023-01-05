@@ -97,7 +97,7 @@ export default function AdminDashboardScreen() {
                 <div className="flex flex-col">
                   <div className="card m-5 p-5">
                     <p className="text-3xl">
-                      £{summary.ordersPrice.toLocaleString()}{" "}
+                      £{summary.ordersPrice.toLocaleString("en", options)}{" "}
                     </p>
                     <p className="text-[var(--blue)]">Sales</p>
                     <Link className="text-black" href="/admin/orders">
@@ -134,3 +134,8 @@ export default function AdminDashboardScreen() {
     </Auth>
   );
 }
+
+const options = {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+};

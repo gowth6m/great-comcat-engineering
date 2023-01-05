@@ -41,7 +41,7 @@ export default function AdminOrderScreen() {
   }, []);
 
   return (
-    <Auth>
+    <Auth adminOnly>
       <Layout title="Admin Dashboard">
         <div className="flex flex-col md:flex-row">
           <div className="m-5 flex flex-row md:flex-col space-x-4 md:space-x-0 md:space-y-2 bg-[var(--blue)] p-2 md:w-2/6 rounded-lg justify-center align-top h-full">
@@ -106,7 +106,9 @@ export default function AdminOrderScreen() {
                           </Link>
                         </div>
 
-                        <div>£{order.totalPrice.toLocaleString()}</div>
+                        <div>
+                          £{order.totalPrice.toLocaleString("en", options)}
+                        </div>
                         <div>
                           {new Date(order.createdAt).toLocaleDateString()}
                         </div>
@@ -139,3 +141,8 @@ export default function AdminOrderScreen() {
     </Auth>
   );
 }
+
+const options = {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+};

@@ -191,7 +191,9 @@ function OrderScreen() {
                         {item.name} ({item.qty}) £{item.price * item.qty}
                       </div>
                     ))}
-                    <div className="font-semibold">Subtotal: £{itemsPrice}</div>
+                    <div className="font-semibold">
+                      Subtotal: £{itemsPrice.toLocaleString("en", options)}
+                    </div>
                   </div>
                 </div>
                 <hr />
@@ -240,3 +242,8 @@ function OrderScreen() {
 }
 
 export default OrderScreen;
+
+const options = {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+};
